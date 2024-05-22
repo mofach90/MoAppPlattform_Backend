@@ -7,13 +7,10 @@ dotenv.config();
 const yourPassword = "admin"
 const hashPassword = async (yourPassword:string) => {
     try {
-        const hash = await bcrypt.hash(yourPassword,10)
-        if (hash){
-            return hash
-        }
+        const yourHashedPassword = await bcrypt.hash(yourPassword,10)
+        console.log({yourHashedPassword})
     } catch (error) {
         console.log('Errror when hashing the password', error)
     }
 }
-const yourHashedPassword = await hashPassword(yourPassword)
-console.log({yourHashedPassword})
+hashPassword(yourPassword)
