@@ -1,5 +1,9 @@
 import base64 from "base-64";
+import dotenv from "dotenv"
 import { NextFunction, Request, Response } from "express";
+
+
+dotenv.config()
 
 const decodeLoginData = (authHeader: string) => {
   const encodedCredentials = authHeader.trim().replace(/Basic\s+/i, "");
@@ -8,8 +12,8 @@ const decodeLoginData = (authHeader: string) => {
 };
 
 const checkLoginValidity = (userName: string, password: string) => {
-  const userNameDummy = "admin";
-  const passwordDummy = "admin";
+  const userNameDummy = process.env.USERNAME;
+  const passwordDummy = process.env.PASSWORD;
   if (userName == userNameDummy && password == passwordDummy) {
     return true;
   }
