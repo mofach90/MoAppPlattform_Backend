@@ -1,6 +1,7 @@
 import * as bcrypt from "bcrypt";
 import * as dotenv from "dotenv";
 import { NextFunction, Request, Response } from "express";
+import logger from "../loggingFramework/logger";
 
 dotenv.config();
 const formBasedAuth = async (
@@ -10,28 +11,39 @@ const formBasedAuth = async (
 ) => {
   try {
     if (await isSuccessfullyChecked(req)) {
+      logger.info("Authentication successful", { userName: req.body.userName });
       res.set("Content-Type", "application/json");
       res.status(200).send({ message: "Authentication Success" });
       return next();
+    } else {
+      logger.warn("Authentication failed", { userName: req.body.userName });
+      res.status(401).send("False Credentials");
     }
-    res.status(401).send("False Credentials");
   } catch (error) {
-    console.error("Error occur within from based authentication", error);
+    logger.error("Error occured within form-based authentication", { error });
+    console.debug({error})
     res.status(500).send("Internal Server Failure");
   }
 };
 
 const isSuccessfullyChecked = async (req: Request) => {
-  const { userName, password } = req.body;
-  const storedUserName = process.env.USERNAME;
-  const storedPassword = process.env.PASSWORD;
-  if (!storedUserName || !storedPassword) {
-    throw new Error("Envirenment username or password are not set !!");
+  try {
+    const { userName, password } = req.body;
+    const storedUserName = process.env.USERNAME;
+    const storedPassword = process.env.PASSWORD;
+    if (!storedUserName || !storedPassword) {
+      throw new Error("Envirenment username or password are not set !!");
+    }
+    const compareResult = await bcrypt.compare(password, storedPassword);
+    if (!compareResult) {
+      return false
+    }
+    return userName === storedUserName && compareResult;
+  } catch (error) {
+    logger.error("Error occurred during password comparison", { error });
+    // console.log({error})
+    throw new Error("Error occurred during authentication process");
   }
-  return (
-    userName === storedUserName &&
-    (await bcrypt.compare(password, storedPassword))
-  );
 };
 
 export { formBasedAuth };
