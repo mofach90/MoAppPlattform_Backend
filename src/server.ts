@@ -3,7 +3,6 @@ import cors from "cors";
 import "dotenv/config";
 import express from "express";
 import session from "express-session";
-import sessions from "./express-session";
 import logger from "./loggingFramework/logger";
 import { formBasedAuth } from "./middleware/formBasedAuthentication";
 
@@ -33,18 +32,17 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
-app.get("/", (req, res) => {
+app.get("/", (_, res) => {
   res.send("Welcome to MoAppBackend ");
 });
 
-app.post("/login", formBasedAuth, (req, res) => {
-  req.session.regenerate(function (err) {
-    if (err) {
+app.post("/login", formBasedAuth, (req, res) => { 
+  // help against forms of session fixation 
+  req.session.regenerate(function (err) {     if (err) {
       logger.error("Session regeneration failed", { error: err });
       return res.status(500).send("Internal Server Error");
     }
-    req.session.user = req.body.user;
-    
+    req.session.user = req.body.userName;
     req.session.save(function (err) {
       if (err) {
         logger.error("Session save failed", { error: err });
