@@ -13,7 +13,6 @@ const formBasedAuth = async (
     if (await isSuccessfullyChecked(req)) {
       logger.info("Authentication successful", { userName: req.body.userName });
       res.set("Content-Type", "application/json");
-      res.status(200).send({ message: "Authentication Success" });
       return next();
     } else {
       logger.warn("Authentication failed", { userName: req.body.userName });
@@ -21,7 +20,7 @@ const formBasedAuth = async (
     }
   } catch (error) {
     logger.error("Error occured within form-based authentication", { error });
-    console.debug({error})
+    console.debug({error}) // in case the error occure in logger it self
     res.status(500).send("Internal Server Failure");
   }
 };
@@ -41,7 +40,6 @@ const isSuccessfullyChecked = async (req: Request) => {
     return userName === storedUserName && compareResult;
   } catch (error) {
     logger.error("Error occurred during password comparison", { error });
-    // console.log({error})
     throw new Error("Error occurred during authentication process");
   }
 };
