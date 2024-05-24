@@ -3,6 +3,7 @@ import cors from "cors";
 import "dotenv/config";
 import express from "express";
 import session from "express-session";
+import validator from "validator";
 import logger from "./loggingFramework/logger";
 import { formBasedAuth } from "./middleware/formBasedAuthentication";
 
@@ -28,6 +29,7 @@ app.use(
 
 const port =
   process.env.PORT || (process.env.NODE_ENV === "test" ? 4000 : 3000);
+
 const corsOptions = {
   origin: "http://localhost:3500",
   credentials: true, // Allow credentials (cookies)
@@ -36,6 +38,20 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
+
+// Middleware to sanitize inputs, Helps protect against XSS and other injection attacks by cleaning user inputs before processing or storing them.
+app.use((req, _, next) => {
+  console.log("before",req.body )
+  if (req.body) {
+    for (const key in req.body) {
+      if (typeof req.body[key] === "string") {
+        req.body[key] = validator.escape(req.body[key]);
+      }
+    }
+  }
+  console.log("after",req.body )
+  next();
+});
 
 app.get("/", (_, res) => {
   res.send("Welcome to MoAppBackend ");
