@@ -18,7 +18,11 @@ app.use(
     secret: process.env.SESSION_SECRET_KEY || "",
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false },
+    cookie: {
+      secure: false,
+      httpOnly: true,
+      sameSite: "lax", // helps against Cross-Site Request Forgery (CSRF) attacks
+    },
   })
 );
 
@@ -26,7 +30,8 @@ const port =
   process.env.PORT || (process.env.NODE_ENV === "test" ? 4000 : 3000);
 const corsOptions = {
   origin: "http://localhost:3500",
-  credential: true,
+  credentials: true, // Allow credentials (cookies)
+  optionsSuccessStatus: 200, // option is used to ensure that a 200 status code is returned for preflight requests (an OPTIONS request sent to the server before the actual request, to check if the actual request is safe to send)
 };
 
 app.use(cors(corsOptions));
@@ -36,9 +41,10 @@ app.get("/", (_, res) => {
   res.send("Welcome to MoAppBackend ");
 });
 
-app.post("/login", formBasedAuth, (req, res) => { 
-  // help against forms of session fixation 
-  req.session.regenerate(function (err) {     if (err) {
+app.post("/login", formBasedAuth, (req, res) => {
+  // help against forms of session fixation
+  req.session.regenerate(function (err) {
+    if (err) {
       logger.error("Session regeneration failed", { error: err });
       return res.status(500).send("Internal Server Error");
     }
@@ -48,7 +54,9 @@ app.post("/login", formBasedAuth, (req, res) => {
         logger.error("Session save failed", { error: err });
         return res.status(500).send("Internal Server Error");
       }
-      res.status(200).json({ message: "Login successful", sessionID: req.sessionID });
+      res
+        .status(200)
+        .json({ message: "Login successful", sessionID: req.sessionID });
     });
   });
   logger.info("Form-Based-Succeeded");
