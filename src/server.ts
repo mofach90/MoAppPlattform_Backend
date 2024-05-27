@@ -1,60 +1,36 @@
-import bodyParser from "body-parser";
-import cors from "cors";
 import "dotenv/config";
 import express from "express";
-import session from "express-session";
-import validator from "validator";
 import logger from "./loggingFramework/logger";
+import { jsonParser } from "./middleware/bodyParser";
+import { corsMiddleware } from "./middleware/cors";
 import { formBasedAuth } from "./middleware/formBasedAuthentication";
+import { sanitizeMiddleware } from "./middleware/sanitize";
+import { sessionFactory } from "./middleware/sessionFactory";
+import { assignPort } from "./utilities/assignPort";
+import { checkSessionSecretKey } from "./utilities/checkSessionSecretKey";
+
 
 const app = express();
 
-if (!process.env.SESSION_SECRET_KEY) {
-  logger.error("Secret key to sign the session ID cookie not defined");
-  process.exit(1);
-}
+checkSessionSecretKey();
 
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET_KEY || "",
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      secure: false,
-      httpOnly: true,
-      sameSite: "lax", // helps against Cross-Site Request Forgery (CSRF) attacks
-    },
-  })
-);
+const port = assignPort();
 
-const port =
-  process.env.PORT || (process.env.NODE_ENV === "test" ? 4000 : 3000);
-
-const corsOptions = {
-  origin: "http://localhost:3500",
-  credentials: true, // Allow credentials (cookies)
-  optionsSuccessStatus: 200, // option is used to ensure that a 200 status code is returned for preflight requests (an OPTIONS request sent to the server before the actual request, to check if the actual request is safe to send)
-};
-
-app.use(cors(corsOptions));
-app.use(bodyParser.json());
-
-// Middleware to sanitize inputs, Helps protect against XSS and other injection attacks by cleaning user inputs before processing or storing them.
-app.use((req, _, next) => {
-  console.log("before",req.body )
-  if (req.body) {
-    for (const key in req.body) {
-      if (typeof req.body[key] === "string") {
-        req.body[key] = validator.escape(req.body[key]);
-      }
-    }
-  }
-  console.log("after",req.body )
-  next();
-});
+app.use(sessionFactory);
+app.use(corsMiddleware);
+app.use(jsonParser);
+app.use(sanitizeMiddleware); // Middleware to sanitize inputs, Helps protect against XSS and other injection attacks by cleaning user inputs before processing or storing them.
 
 app.get("/", (_, res) => {
   res.send("Welcome to MoAppBackend ");
+});
+
+app.get("/check-auth", (req, res) => {
+  if (req.session.user) {
+    res.status(200).send({ isAuthenticated: true });
+  } else {
+    res.status(401).send({ isAuthenticated: false });
+  }
 });
 
 app.post("/login", formBasedAuth, (req, res) => {
@@ -84,7 +60,7 @@ app.get("/test", (_, res) => {
 });
 
 const server = app.listen(port, () => {
-  console.log(`server running at http:\\localhost:${port}`);
+  logger.info(`server running at http:\\localhost:${port}`);
 });
 
 export { app, server };

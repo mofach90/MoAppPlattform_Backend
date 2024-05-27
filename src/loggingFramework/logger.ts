@@ -1,7 +1,5 @@
 import { createLogger, format, transports } from "winston";
 
-const hi = true;
-
 const logger = createLogger({
   level: "info",
   format: format.combine(
