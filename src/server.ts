@@ -9,7 +9,7 @@ import { sessionFactory } from "./middleware/sessionFactory";
 import { assignPort } from "./utilities/assignPort";
 import { checkSessionSecretKey } from "./utilities/checkSessionSecretKey";
 
-
+import { basicAuthMiddleware } from "./middleware/basicauth";
 const app = express();
 
 checkSessionSecretKey();
@@ -22,7 +22,11 @@ app.use(jsonParser);
 app.use(sanitizeMiddleware); // Middleware to sanitize inputs, Helps protect against XSS and other injection attacks by cleaning user inputs before processing or storing them.
 
 app.get("/", (_, res) => {
-  res.send("Welcome to MoAppBackend ");
+  res.status(200).send("Welcome to MoAppBackend ");
+});
+
+app.get("/basicauthentication", basicAuthMiddleware, (_, res) => {
+  res.status(200).send("Welcome to MoAppBackend - Basic Authentication ");
 });
 
 app.get("/check-auth", (req, res) => {
