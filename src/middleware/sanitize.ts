@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
 import validator from "validator";
 
 const sanitizeMiddleware = (req: Request, _: Response, next: NextFunction) => {

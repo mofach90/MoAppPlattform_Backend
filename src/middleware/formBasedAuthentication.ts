@@ -20,7 +20,7 @@ const formBasedAuth = async (
     }
   } catch (error) {
     logger.error("Error occured within form-based authentication", { error });
-    console.debug({error}) // in case the error occure in logger it self
+    console.debug({ error }); // in case the error occure in logger it self
     res.status(500).send("Internal Server Failure");
   }
 };
@@ -35,7 +35,7 @@ const isSuccessfullyChecked = async (req: Request) => {
     }
     const compareResult = await bcrypt.compare(password, storedPassword);
     if (!compareResult) {
-      return false
+      return false;
     }
     return userName === storedUserName && compareResult;
   } catch (error) {
