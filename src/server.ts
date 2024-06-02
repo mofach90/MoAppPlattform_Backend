@@ -10,6 +10,8 @@ import { assignPort } from "./utilities/assignPort";
 import { checkSessionSecretKey } from "./utilities/checkSessionSecretKey";
 
 import { basicAuthMiddleware } from "./middleware/basicauth";
+import { verifyJwt } from "./middleware/verifyJwt";
+import { tokenGenerator } from "./utilities/generateToken";
 const app = express();
 
 checkSessionSecretKey();
@@ -31,10 +33,22 @@ app.get("/basicauthentication", basicAuthMiddleware, (_, res) => {
 
 app.get("/check-auth", (req, res) => {
   if (req.session.user) {
-    res.status(200).send({ isAuthenticated: true });
+    res.status(200).send({ isAuthenticatedSessionId: true });
   } else {
-    res.status(401).send({ isAuthenticated: false });
+    res.status(401).send({ isAuthenticatedSessionId: false });
   }
+});
+
+app.get("/check-auth-jwt", verifyJwt, (req, res) => {
+  res.set("Content-Type", "application/json; charset=utf-8");
+  res.status(200).send({ message: "Valid Token", isAuthenticatedJwt: true });
+});
+
+app.post("/loginjwt", formBasedAuth, (req, res) => {
+  const token = tokenGenerator(req.body.userName);
+  res.setHeader("Authorization", `Bearer ${token}`);
+  res.status(200).json({ message: "login successful", token });
+  logger.info("JWT Based Authentication Succeeded");
 });
 
 app.post("/login", formBasedAuth, (req, res) => {

@@ -32,7 +32,6 @@ const basicAuthMiddleware = (
 
   res.set("WWW-Authenticate", 'Basic realm="/"');
   res.status(401).send("Require Authentication");
-  console.log("res._header:", (res as any)._header);
 };
 
 export { basicAuthMiddleware };

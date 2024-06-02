@@ -11,7 +11,7 @@ const hashPassword = async (yourPassword: string) => {
     const yourHashedPassword = await bcrypt.hash(yourPassword, 10);
     logger.info({ yourHashedPassword });
   } catch (error) {
-    console.log("Errror when hashing the password", error);
+    logger.error("Errror when hashing the password", error);
   }
 };
 hashPassword(yourPassword);
