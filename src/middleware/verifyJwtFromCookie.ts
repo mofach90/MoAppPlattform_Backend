@@ -1,7 +1,12 @@
 import cookie from "cookie";
 import { NextFunction, Request, Response } from "express";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import logger from "../loggingFramework/logger";
+
+interface decodeType extends JwtPayload {
+  user?: string
+}
+
 
 export const verifyJwtFromCookie = (
   req: Request,
@@ -24,9 +29,8 @@ export const verifyJwtFromCookie = (
   }
 
   try {
-    const decode: any = jwt.verify(token, process.env.JWT_SECRET || "");
-
-    if (decode.user != process.env.USERNAME) {
+    const decode: decodeType | string = jwt.verify(token, process.env.JWT_SECRET || "");
+    if ( typeof decode === "string" || decode.user !== process.env.USERNAME  ) {
       return res
         .status(401)
         .send({ message: "Invalid Token", isAuthenticatedJwt: false });
