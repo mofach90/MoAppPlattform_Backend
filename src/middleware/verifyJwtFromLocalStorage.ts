@@ -1,8 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import logger from "../loggingFramework/logger";
 
-export const verifyJwt = (req: Request, res: Response, next: NextFunction) => {
+export const verifyJwtFromLocalStorage = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const authRequest = req.headers.authorization;
   const token = authRequest?.split(" ")[1];
   if (!token) {
