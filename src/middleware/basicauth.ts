@@ -1,9 +1,8 @@
 import base64 from "base-64";
-import dotenv from "dotenv"
+import dotenv from "dotenv";
 import { NextFunction, Request, Response } from "express";
 
-
-dotenv.config()
+dotenv.config();
 
 const decodeLoginData = (authHeader: string) => {
   const encodedCredentials = authHeader.trim().replace(/Basic\s+/i, "");
@@ -27,13 +26,12 @@ const basicAuthMiddleware = (
 ) => {
   const [userName, password] = decodeLoginData(req.headers.authorization || "");
   const isLoginValid = checkLoginValidity(userName, password);
-  console.log("req", req.headers);
   if (isLoginValid) {
     return next();
   }
-  
+
   res.set("WWW-Authenticate", 'Basic realm="/"');
   res.status(401).send("Require Authentication");
-  console.log("res._header:", (res as any)._header);};
+};
 
 export { basicAuthMiddleware };

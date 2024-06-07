@@ -25,6 +25,7 @@ node --version
 # Check npm installation
 npm --version
 ```
+
 ### installing
 
 A step by step series of examples that tell you how to get a development environment running:
@@ -56,7 +57,6 @@ bash
 
 `npm run test`
 
-
 ### Welcome Endpoint
 
 **Request**:
@@ -85,8 +85,7 @@ html
 
 `<h1>success status 200</h1>`
 
-Built With
-----------
+## Built With
 
--   [Express](https://expressjs.com/) - The web framework used
--   [Node.js](https://nodejs.org/) - The runtime environment
+- [Express](https://expressjs.com/) - The web framework used
+- [Node.js](https://nodejs.org/) - The runtime environment
