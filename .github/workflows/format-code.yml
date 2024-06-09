@@ -17,10 +17,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set-Up Node-js
+      - name: Extract The NodeJs Version From .tool-versions File
+        id: extract_node_version
+        run: |
+          NODE_VERSION=$(grep -i 'nodejs' | awk '{print $2}')
+          echo "::set-output name=node-version::$NODE_VERSION"
+        shell: bash
+
+      - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '22.1.0'
+          node-version: ${{ steps.extract_node_version.outputs.node-version }}
 
       - name: Install Dependencies
         run: npm install
