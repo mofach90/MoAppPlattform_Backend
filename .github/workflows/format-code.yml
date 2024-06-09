@@ -1,0 +1,39 @@
+name: Format Code
+
+on:
+  push:
+    branches:
+      - feature/store-jwt-in-cookies/mo
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set-Up Node-js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '22.1.0'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Prettier
+        run: npx prettier --write .
+
+      - name: Commit and Push Code
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add .
+          git commit -m "Format the Code"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
