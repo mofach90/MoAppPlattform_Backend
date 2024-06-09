@@ -1,4 +1,4 @@
-import bodyParser from "body-parser";
+import bodyParser from 'body-parser';
 
 const jsonParser = bodyParser.json();
 
