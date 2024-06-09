@@ -1,13 +1,13 @@
-import base64 from "base-64";
-import dotenv from "dotenv";
-import { NextFunction, Request, Response } from "express";
+import base64 from 'base-64';
+import dotenv from 'dotenv';
+import { NextFunction, Request, Response } from 'express';
 
 dotenv.config();
 
 const decodeLoginData = (authHeader: string) => {
-  const encodedCredentials = authHeader.trim().replace(/Basic\s+/i, "");
+  const encodedCredentials = authHeader.trim().replace(/Basic\s+/i, '');
   const decodedCredentials = base64.decode(encodedCredentials);
-  return decodedCredentials.split(":");
+  return decodedCredentials.split(':');
 };
 
 const checkLoginValidity = (userName: string, password: string) => {
@@ -22,16 +22,16 @@ const checkLoginValidity = (userName: string, password: string) => {
 const basicAuthMiddleware = (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
-  const [userName, password] = decodeLoginData(req.headers.authorization || "");
+  const [userName, password] = decodeLoginData(req.headers.authorization ?? '');
   const isLoginValid = checkLoginValidity(userName, password);
   if (isLoginValid) {
     return next();
   }
 
-  res.set("WWW-Authenticate", 'Basic realm="/"');
-  res.status(401).send("Require Authentication");
+  res.set('WWW-Authenticate', 'Basic realm="/"');
+  res.status(401).send('Require Authentication');
 };
 
 export { basicAuthMiddleware };
