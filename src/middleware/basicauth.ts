@@ -24,7 +24,7 @@ const basicAuthMiddleware = (
   res: Response,
   next: NextFunction,
 ) => {
-  const [userName, password] = decodeLoginData(req.headers.authorization || '');
+  const [userName, password] = decodeLoginData(req.headers.authorization ?? '');
   const isLoginValid = checkLoginValidity(userName, password);
   if (isLoginValid) {
     return next();

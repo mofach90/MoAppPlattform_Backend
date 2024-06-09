@@ -27,8 +27,8 @@ const formBasedAuth = async (
 const isSuccessfullyChecked = async (req: Request) => {
   try {
     const { userName, password } = req.body;
-    const storedUserName = process.env.USERNAME;
-    const storedPassword = process.env.PASSWORD;
+    const storedUserName = process.env.USERNAME ?? '';
+    const storedPassword = process.env.PASSWORD ?? '';
     if (!storedUserName || !storedPassword) {
       throw new Error('Envirenment username or password are not set !!');
     }

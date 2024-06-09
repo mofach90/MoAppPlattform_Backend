@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import logger from '../loggingFramework/logger';
-import { decodeType } from './verifyJwtFromCookie';
+import { DecodeType } from './verifyJwtFromCookie';
 
 export const verifyJwtFromLocalStorage = (
   req: Request,
@@ -16,9 +16,9 @@ export const verifyJwtFromLocalStorage = (
       .send({ message: 'A token is required for authentication' });
   }
   try {
-    const decode: decodeType | string = jwt.verify(
+    const decode: DecodeType | string = jwt.verify(
       token,
-      process.env.JWT_SECRET || '',
+      process.env.JWT_SECRET ?? '',
     );
     if (typeof decode === 'string' || decode.user !== process.env.USERNAME) {
       return res

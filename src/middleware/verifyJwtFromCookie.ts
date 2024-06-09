@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import logger from '../loggingFramework/logger';
 
-export interface decodeType extends JwtPayload {
+export interface DecodeType extends JwtPayload {
   user?: string;
 }
 
@@ -28,9 +28,9 @@ export const verifyJwtFromCookie = (
   }
 
   try {
-    const decode: decodeType | string = jwt.verify(
+    const decode: DecodeType | string = jwt.verify(
       token,
-      process.env.JWT_SECRET || '',
+      process.env.JWT_SECRET ?? '',
     );
     if (typeof decode === 'string' || decode.user !== process.env.USERNAME) {
       return res
