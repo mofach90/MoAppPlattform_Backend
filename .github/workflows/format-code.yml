@@ -20,7 +20,7 @@ jobs:
       - name: Extract The NodeJs Version From .tool-versions File
         id: extract_node_version
         run: |
-          NODE_VERSION=$(grep -i 'nodejs' | awk '{print $2}')
+          NODE_VERSION=$(grep 'nodejs' | awk '{print $2}')
           echo "::set-output name=node-version::$NODE_VERSION"
         shell: bash
 
