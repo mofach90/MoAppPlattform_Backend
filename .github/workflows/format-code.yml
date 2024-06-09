@@ -21,7 +21,7 @@ jobs:
         id: extract_node_version
         run: |
           NODE_VERSION=$(grep -i 'nodejs' .tool-versions | awk '{print $2}')
-          echo "::set-output name=node-version::$NODE_VERSION"
+          echo "{node-version}={$NODE_VERSION}" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: Set up Node.js
