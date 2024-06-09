@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { app, server } from '../server';
 
-describe("first test ", () => {
+describe('first test ', () => {
   it('test the endpoint /test', async () => {
     const response = await request(app)
       .get('/test')
