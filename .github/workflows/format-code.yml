@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Extract The NodeJs Version From .tool-versions File
         id: extract_node_version
@@ -25,7 +25,7 @@ jobs:
         shell: bash
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ steps.extract_node_version.outputs.node-version }}
 
