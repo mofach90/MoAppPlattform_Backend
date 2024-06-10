@@ -13,11 +13,10 @@ import { basicAuthMiddleware } from './middleware/basicauth';
 import { verifyJwtFromCookie } from './middleware/verifyJwtFromCookie';
 import { verifyJwtFromLocalStorage } from './middleware/verifyJwtFromLocalStorage';
 import { tokenGenerator } from './utilities/generateToken';
-const app = express();
+import { app } from './api/server';
 
 checkSessionSecretKey();
 
-const port = assignPort();
 
 app.use(sessionFactory);
 app.use(corsMiddleware);
@@ -101,8 +100,5 @@ app.get('/test', (_, res) => {
   res.status(200).send('<h1>success status 200</h1>');
 });
 
-const server = app.listen(port, () => {
-  logger.info(`server running at http:\\localhost:${port}`);
-});
 
-export { app, server };
+export { app };

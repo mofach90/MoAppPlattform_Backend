@@ -6,7 +6,7 @@
     "test": "NODE_ENV=test jest",
     "build": "tsc",
     "start": "npm run build && node dist/server.js",
-    "dev": "rm -rf node_modules/ && npm install && nodemon src/server.ts"
+    "dev": "rm -rf node_modules/ && npm install && nodemon src/app.ts"
   },
   "keywords": [],
   "author": "",
