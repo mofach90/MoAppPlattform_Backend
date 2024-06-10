@@ -3,7 +3,7 @@ name: Format Code
 on:
   push:
     branches:
-      - feature/store-jwt-in-cookies/mo
+      - refactor/folder-structure/mo
       - main
   pull_request:
     branches:
