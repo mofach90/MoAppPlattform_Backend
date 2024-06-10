@@ -10,10 +10,9 @@ import { assignPort } from './utilities/assignPort';
 import { checkSessionSecretKey } from './utilities/checkSessionSecretKey';
 
 import { basicAuthMiddleware } from './middleware/basicauth';
+import { verifyJwtFromCookie } from './middleware/verifyJwtFromCookie';
 import { verifyJwtFromLocalStorage } from './middleware/verifyJwtFromLocalStorage';
 import { tokenGenerator } from './utilities/generateToken';
-import { verifyJwtFromCookie } from './middleware/verifyJwtFromCookie';
-import cors from 'cors';
 const app = express();
 
 checkSessionSecretKey();
