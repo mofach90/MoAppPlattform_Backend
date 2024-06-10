@@ -91,7 +91,7 @@ app.post('/login', formBasedAuth, (req, res) => {
       }
       res
         .status(200)
-        .json({ message:'Login successful', sessionID: req.sessionID });
+        .json({ message: 'Login successful', sessionID: req.sessionID });
     });
   });
   logger.info('Form-Based-Succeeded');
