@@ -17,7 +17,6 @@ import { app } from './api/server';
 
 checkSessionSecretKey();
 
-
 app.use(sessionFactory);
 app.use(corsMiddleware);
 app.use(jsonParser);
@@ -99,6 +98,5 @@ app.get('/test', (_, res) => {
   res.set('Content-Type', 'text/html');
   res.status(200).send('<h1>success status 200</h1>');
 });
-
 
 export { app };
