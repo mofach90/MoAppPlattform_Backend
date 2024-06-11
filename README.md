@@ -58,6 +58,7 @@ bash
 - [Node.js](https://nodejs.org/) - The runtime environment
 
 ## Folder Structure
+
 ```
 ├── README.md
 ├── jest.config.js
@@ -99,6 +100,7 @@ bash
 │ └── express-session.d.ts
 └── tsconfig.json
 ```
+
 ## Api Directory
 
 ### Directory: src/api/components
