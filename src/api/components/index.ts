@@ -1,9 +1,6 @@
-import { Router } from "express";
+import { Router } from 'express';
 
-
-export function registerApiRoutes(router:Router, prefix:string = ''):void {
-
-    router.use(`${prefix}/check-auth`,createCheckAuthRoutes())
-    router.use(`${prefix}/login`)
-
+export function registerApiRoutes(router: Router, prefix: string = ''): void {
+  router.use(`${prefix}/check-auth`, createCheckAuthRoutes());
+  router.use(`${prefix}/login`);
 }

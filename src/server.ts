@@ -17,8 +17,6 @@ import { app } from './api/server';
 
 // Middleware to sanitize inputs, Helps protect against XSS and other injection attacks by cleaning user inputs before processing or storing them.
 
-
-
 app.get('/basicauthentication', basicAuthMiddleware, (_, res) => {
   res.status(200).send('Welcome to MoAppBackend - Basic Authentication ');
 });
