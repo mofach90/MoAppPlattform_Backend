@@ -1,32 +1,20 @@
-import cookie from 'cookie';
 import { NextFunction, Request, Response } from 'express';
-import jwt, { JwtPayload } from 'jsonwebtoken';
-import logger from '../loggingFramework/logger';
+import jwt from 'jsonwebtoken';
+import logger from '../../config/logger';
+import { DecodeType } from './verifyJwtFromCookie';
 
-export interface DecodeType extends JwtPayload {
-  user?: string;
-}
-
-export const verifyJwtFromCookie = (
+export const verifyJwtFromLocalStorage = (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
-  const cookies = req.headers.cookie;
-  if (!cookies) {
-    return res.status(403).send({ message: 'No cookies found' });
-  }
-
-  const parsedCookies = cookie.parse(cookies);
-  const token = parsedCookies['jwt'];
-
-  logger.warn(token);
+  const authRequest = req.headers.authorization;
+  const token = authRequest?.split(' ')[1];
   if (!token) {
     return res
       .status(403)
       .send({ message: 'A token is required for authentication' });
   }
-
   try {
     const decode: DecodeType | string = jwt.verify(
       token,
@@ -37,12 +25,12 @@ export const verifyJwtFromCookie = (
         .status(401)
         .send({ message: 'Invalid Token', isAuthenticatedJwt: false });
     }
-
     next();
   } catch (error) {
-    logger.error(`JWT Error: ${(error as any).message}`);
+    logger.error(`JWT Error from Verify Jwt from Local Storage:${(error as any).message}`);
     if ((error as any).name === 'TokenExpiredError') {
       logger.error('Token has expired');
+
       return res
         .status(401)
         .send({ message: 'Token has expired', isAuthenticatedJwt: false });

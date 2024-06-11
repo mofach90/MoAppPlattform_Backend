@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import logger from '../loggingFramework/logger';
+import logger from '../../config/logger';
 
 export function checkSessionSecretKey() {
   if (!process.env.SESSION_SECRET_KEY) {

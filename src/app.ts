@@ -1,6 +1,6 @@
 import { app } from './api/server';
-import logger from './loggingFramework/logger';
-import { assignPort } from './utilities/assignPort';
+import logger from './config/logger';
+import { assignPort } from './services/utilities/assignPort';
 
 const port = assignPort();
 
