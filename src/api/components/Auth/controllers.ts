@@ -63,10 +63,8 @@ export const loginUsingSessionId = (req: Request, res: Response) => {
   logger.info('Form-Based-Succeeded');
 };
 export const loginUsingBasicAuthentication = (req: Request, res: Response) => {
-  res
-    .status(200)
-    .send({
-      message: 'Basic Authentication Succeed ',
-      isAuthenticatedBasic: true,
-    });
+  res.status(200).send({
+    message: 'Basic Authentication Succeed ',
+    isAuthenticatedBasic: true,
+  });
 };

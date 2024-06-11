@@ -2,7 +2,6 @@
 
 MoAppPlattform_Backend is a backend service built with Node.js and Express. It provides simple web APIs for a web app plattform.
 
-
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
@@ -53,7 +52,6 @@ bash
 
 `npm run test`
 
-
 ### Built With
 
 - [Express](https://expressjs.com/) - The web framework used
@@ -66,39 +64,39 @@ bash
 ├── package-lock.json
 ├── package.json
 ├── src
-│   ├── api
-│   │   ├── components
-│   │   │   ├── Auth
-│   │   │   │   ├── controllers.ts
-│   │   │   │   └── routes.ts
-│   │   │   └── index.ts
-│   │   ├── middleware
-│   │   │   └── index.ts
-│   │   ├── routes.ts
-│   │   └── server.ts
-│   ├── app.ts
-│   ├── config
-│   │   └── logger.ts
-│   ├── services
-│   │   ├── auth
-│   │   │   ├── basicauth.ts
-│   │   │   ├── formBasedAuthentication.ts
-│   │   │   ├── verifyJwtFromCookie.ts
-│   │   │   └── verifyJwtFromLocalStorage.ts
-│   │   ├── basic
-│   │   │   ├── bodyParser.ts
-│   │   │   ├── cors.ts
-│   │   │   ├── sanitize.ts
-│   │   │   └── sessionFactory.ts
-│   │   └── utilities
-│   │       ├── assignPort.ts
-│   │       ├── checkSessionSecretKey.ts
-│   │       ├── generateHashPass.ts
-│   │       └── generateToken.ts
-│   ├── test
-│   │   └── app.test.ts
-│   └── types
-│       └── express-session.d.ts
+│ ├── api
+│ │ ├── components
+│ │ │ ├── Auth
+│ │ │ │ ├── controllers.ts
+│ │ │ │ └── routes.ts
+│ │ │ └── index.ts
+│ │ ├── middleware
+│ │ │ └── index.ts
+│ │ ├── routes.ts
+│ │ └── server.ts
+│ ├── app.ts
+│ ├── config
+│ │ └── logger.ts
+│ ├── services
+│ │ ├── auth
+│ │ │ ├── basicauth.ts
+│ │ │ ├── formBasedAuthentication.ts
+│ │ │ ├── verifyJwtFromCookie.ts
+│ │ │ └── verifyJwtFromLocalStorage.ts
+│ │ ├── basic
+│ │ │ ├── bodyParser.ts
+│ │ │ ├── cors.ts
+│ │ │ ├── sanitize.ts
+│ │ │ └── sessionFactory.ts
+│ │ └── utilities
+│ │ ├── assignPort.ts
+│ │ ├── checkSessionSecretKey.ts
+│ │ ├── generateHashPass.ts
+│ │ └── generateToken.ts
+│ ├── test
+│ │ └── app.test.ts
+│ └── types
+│ └── express-session.d.ts
 └── tsconfig.json
 
 ## Api Directory
@@ -152,4 +150,4 @@ This directory includes all custom manuel added types needed in the project.
 
 This is the startup file of our application. It starts the express server.
 
-* To get more understanding of the Structure check this article : https://medium.com/swlh/how-i-structure-my-node-js-rest-apis-4e8904ccd2fb
+- To get more understanding of the Structure check this article : https://medium.com/swlh/how-i-structure-my-node-js-rest-apis-4e8904ccd2fb
