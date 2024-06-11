@@ -44,7 +44,7 @@ bash
 
 `npm run dev`
 
-### Running the tests
+## Running the tests
 
 Explain how to run the automated tests for this system:
 
@@ -57,8 +57,8 @@ bash
 - [Express](https://expressjs.com/) - The web framework used
 - [Node.js](https://nodejs.org/) - The runtime environment
 
-### Folder Structure
-
+## Folder Structure
+```
 ├── README.md
 ├── jest.config.js
 ├── package-lock.json
@@ -98,10 +98,10 @@ bash
 │ └── types
 │ └── express-session.d.ts
 └── tsconfig.json
-
+```
 ## Api Directory
 
-# Directory: src/api/components
+### Directory: src/api/components
 
 Here we have the heart of our component based Node API. Each component has its own routes, controller
 
@@ -114,39 +114,39 @@ Request validation happens via middleware few steps before
 
 Here we define the API endpoints for the corresponding component and assign the controller methods to them.
 
-# Directory: src/api/middleware/
+### Directory: src/api/middleware/
 
 This folder includes all the API’s global middlewares like cors, sanitizer, sesion factory etc.
 
-# File: src/api/routes.ts
+### File: src/api/routes.ts
 
 Here we register all component and middleware routes.
 
-# File: src/api/server.ts
+### File: src/api/server.ts
 
 Here we declare everything required for our express server
 error handling
 
-# Directory: src/config
+### Directory: src/config
 
 This directory includes configuration files. This could be for example:
 
 - global variables
 - logger config
 
-# Directory: src/services/
+### Directory: src/services/
 
 This directory contains global services we need for verifing Json Web Token or authorization methods for example.
 
-# Directory: src/test/
+### Directory: src/test/
 
 This directory includes a test factory for running the component tests. <!-- Test Factory todo -->
 
-# Directory: src/test/
+### Directory: src/test/
 
 This directory includes all custom manuel added types needed in the project.
 
-# File: src/app.ts
+### File: src/app.ts
 
 This is the startup file of our application. It starts the express server.
 
