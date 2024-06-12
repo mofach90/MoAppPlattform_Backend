@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcrypt';
 import * as dotenv from 'dotenv';
 import { NextFunction, Request, Response } from 'express';
-import logger from '../loggingFramework/logger';
+import logger from '../../config/logger';
 
 dotenv.config();
 const formBasedAuth = async (

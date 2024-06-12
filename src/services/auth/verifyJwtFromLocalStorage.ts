@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import logger from '../loggingFramework/logger';
+import logger from '../../config/logger';
 import { DecodeType } from './verifyJwtFromCookie';
 
 export const verifyJwtFromLocalStorage = (
@@ -27,7 +27,9 @@ export const verifyJwtFromLocalStorage = (
     }
     next();
   } catch (error) {
-    logger.error(`JWT Error: ${(error as any).message}`);
+    logger.error(
+      `JWT Error from Verify Jwt from Local Storage:${(error as any).message}`,
+    );
     if ((error as any).name === 'TokenExpiredError') {
       logger.error('Token has expired');
 

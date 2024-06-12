@@ -1,7 +1,7 @@
 import cookie from 'cookie';
 import { NextFunction, Request, Response } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import logger from '../loggingFramework/logger';
+import logger from '../../config/logger';
 
 export interface DecodeType extends JwtPayload {
   user?: string;
@@ -40,7 +40,9 @@ export const verifyJwtFromCookie = (
 
     next();
   } catch (error) {
-    logger.error(`JWT Error: ${(error as any).message}`);
+    logger.error(
+      `JWT Error from Verify Jwt from Cookie: ${(error as any).message}`,
+    );
     if ((error as any).name === 'TokenExpiredError') {
       logger.error('Token has expired');
       return res
