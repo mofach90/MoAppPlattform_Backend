@@ -2,6 +2,12 @@ import { Request, Response } from 'express';
 import logger from '../../../config/logger';
 import { tokenGenerator } from '../../../services/utilities/generateToken';
 
+declare module 'express-session' {
+  interface Session {
+    user: string;
+  }
+}
+
 export const checkAuthSessionIdCookie = (req: Request, res: Response) => {
   if (req.session.user) {
     res
