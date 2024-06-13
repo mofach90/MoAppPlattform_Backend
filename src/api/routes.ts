@@ -3,6 +3,7 @@ import { registerApiRoutes } from './components';
 import { registerMiddleware } from './middleware';
 import logger from '../config/logger';
 import { validSessionIds } from '../services/basic/validSessionIdFactory';
+import { sessionValidator } from '../services/auth/sessionValidator';
 
 export function initRestRoutes(router: Router): void {
   const prefix: string = '/api/v1';
@@ -19,4 +20,5 @@ export function initRestRoutes(router: Router): void {
 
   registerMiddleware(router);
   registerApiRoutes(router);
+
 }

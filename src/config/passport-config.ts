@@ -19,17 +19,6 @@ declare global {
 }
 
 export const users: User[] = []; // In-memory user store
-// let users: User[] = [{
-//   id: 'test1',
-//   googleId: '',
-//   username: '',
-//   email: '',
-// },{
-//   id: 'test2',
-//   googleId: '',
-//   username: '',
-//   email: '',
-// }]; // In-memory user store
 
 passport.serializeUser((user: Express.User, done) => {
   done(null, user.id);
@@ -53,7 +42,6 @@ passport.use(
       profile: Profile,
       done: Function,
     ) => {
-      logger.info({ profile });
       let user = users.find((user) => user.googleId === profile.id);
       if (!user) {
         user = {

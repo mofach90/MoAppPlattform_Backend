@@ -5,6 +5,7 @@ import { tokenGenerator } from '../../../services/utilities/generateToken';
 declare module 'express-session' {
   interface Session {
     user: string;
+    googleSessionId: string;
   }
 }
 
@@ -50,6 +51,7 @@ export const loginUsingJwtCookie = (req: Request, res: Response) => {
 };
 export const loginUsingSessionId = (req: Request, res: Response) => {
   // help against forms of session fixation
+  logger.info(`req.session at the begin of loginUsingSessionId ${req.sessionID}`)
   req.session.regenerate(function (err) {
     if (err) {
       logger.error('Session regeneration failed', { error: err });
@@ -62,11 +64,12 @@ export const loginUsingSessionId = (req: Request, res: Response) => {
         return res.status(500).send('Internal Server Error');
       }
       res
-        .status(200)
-        .json({ message: 'Login successful', sessionID: req.sessionID });
+      .status(200)
+      .json({ message: 'Login successful', sessionID: req.sessionID });
     });
   });
   logger.info('Form-Based-Succeeded');
+  logger.info(`req.session at the end of loginUsingSessionId ${req.sessionID}`)
 };
 export const loginUsingBasicAuthentication = (req: Request, res: Response) => {
   res.status(200).send({
