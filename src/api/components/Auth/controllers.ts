@@ -1,11 +1,12 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import logger from '../../../config/logger';
+import { clearAllSessionsFromDataBase } from '../../../services/basic/validSessionFactory';
 import { tokenGenerator } from '../../../services/utilities/generateToken';
 
 declare module 'express-session' {
   interface Session {
     user: string;
-    googleSessionId: string;
+    passport: { user: string };
   }
 }
 
@@ -50,8 +51,10 @@ export const loginUsingJwtCookie = (req: Request, res: Response) => {
   logger.info('JWT Based Authentication Succeeded');
 };
 export const loginUsingSessionId = (req: Request, res: Response) => {
-  // help against forms of session fixation
-  logger.info(`req.session at the begin of loginUsingSessionId ${req.sessionID}`)
+  // helps against forms of session fixation
+  logger.info(
+    `req.session at the begin of loginUsingSessionId ${req.sessionID}`,
+  );
   req.session.regenerate(function (err) {
     if (err) {
       logger.error('Session regeneration failed', { error: err });
@@ -64,16 +67,43 @@ export const loginUsingSessionId = (req: Request, res: Response) => {
         return res.status(500).send('Internal Server Error');
       }
       res
-      .status(200)
-      .json({ message: 'Login successful', sessionID: req.sessionID });
+        .status(200)
+        .json({ message: 'Login successful', sessionID: req.sessionID });
     });
   });
   logger.info('Form-Based-Succeeded');
-  logger.info(`req.session at the end of loginUsingSessionId ${req.sessionID}`)
+  logger.info(`req.session at the end of loginUsingSessionId ${req.sessionID}`);
 };
 export const loginUsingBasicAuthentication = (req: Request, res: Response) => {
   res.status(200).send({
     message: 'Basic Authentication Succeed ',
     isAuthenticatedBasic: true,
   });
+};
+
+export const googleAuthenticationCallbackController = (
+  req: Request,
+  res: Response,
+) => {
+  // res.status(200).send({ message: "Google Authentication Succeed" }); //Uncommewnt when working with Frontend
+  res.redirect('/');
+};
+export const logoutController = (
+  req: Request,
+  res: Response,
+) => {
+  // res.status(200).send({ message: "Google Authentication Succeed" }); //Uncommewnt when working with Frontend
+  // res.redirect('https://accounts.google.com/logout');  // TODO only for Dev - Delete
+  res.clearCookie('connect.sid');
+
+  res.redirect('/');
+};
+
+export const clearController = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  clearAllSessionsFromDataBase;
+  res.redirect('/');
 };

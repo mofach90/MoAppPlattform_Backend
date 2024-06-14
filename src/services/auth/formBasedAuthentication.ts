@@ -14,7 +14,6 @@ const formBasedAuth = async (
 
     if (await isSuccessfullyChecked(req)) {
       logger.info('Authentication successful', { userName: req.body.userName });
-      res.set('Content-Type', 'application/json');
       logger.info(`req.session at the end of formBasedAuth ${req.sessionID}`)
 
       return next();

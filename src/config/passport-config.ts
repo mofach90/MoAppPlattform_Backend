@@ -51,9 +51,8 @@ passport.use(
           email: profile?.emails?.[0]?.value ?? '',
         };
         users.push(user);
-        logger.info('User added to users array', user);
       }
-      logger.info('Current users array:', users);
+      logger.info('Current users', users);
       return done(null, user);
     },
   ),
