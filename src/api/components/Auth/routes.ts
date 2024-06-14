@@ -57,7 +57,7 @@ export function createAuthRoutes(): Router {
     googleAuthenticationCallbackController,
   );
 
-  router.get('/social-auth/logout', logoutMiddleware,logoutController);
+  router.get('/social-auth/logout', logoutMiddleware, logoutController);
   router.get('/clear', clearController);
 
   return router;

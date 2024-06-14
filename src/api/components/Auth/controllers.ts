@@ -88,10 +88,7 @@ export const googleAuthenticationCallbackController = (
   // res.status(200).send({ message: "Google Authentication Succeed" }); //Uncommewnt when working with Frontend
   res.redirect('/');
 };
-export const logoutController = (
-  req: Request,
-  res: Response,
-) => {
+export const logoutController = (req: Request, res: Response) => {
   // res.status(200).send({ message: "Google Authentication Succeed" }); //Uncommewnt when working with Frontend
   // res.redirect('https://accounts.google.com/logout');  // TODO only for Dev - Delete
   res.clearCookie('connect.sid');

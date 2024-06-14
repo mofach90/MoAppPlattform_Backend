@@ -13,14 +13,13 @@ const sessionFactory = session({
     sameSite: 'lax', // helps against Cross-Site Request Forgery (CSRF) attacks
   },
   store: new session.MemoryStore(),
-  unset: "destroy"
+  unset: 'destroy',
 });
 
 // Middleware to log session details
-const sessionLogger = (req:Request, _:Response , next:NextFunction) => {
+const sessionLogger = (req: Request, _: Response, next: NextFunction) => {
   logger.info(`Session ID: ${req.session.id}`);
   next();
 };
 
-
-export { sessionFactory,sessionLogger };
+export { sessionFactory, sessionLogger };

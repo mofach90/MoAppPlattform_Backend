@@ -2,7 +2,6 @@ import logger from '../../config/logger';
 
 export const validSessions = new Map<string, string>();
 
-
 export async function addSessionToDataBase(userId: string, sessionId: string) {
   validSessions.set(userId, sessionId);
 }

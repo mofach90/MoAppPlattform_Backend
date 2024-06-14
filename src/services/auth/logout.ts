@@ -1,7 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import passport from 'passport';
 import logger from '../../config/logger';
-import { addSessionToDataBase, removeSessionFromDataBase } from '../basic/validSessionFactory';
+import {
+  addSessionToDataBase,
+  removeSessionFromDataBase,
+} from '../basic/validSessionFactory';
 import { users } from '../../config/passport-config';
 
 export const logoutMiddleware = (
@@ -10,9 +13,9 @@ export const logoutMiddleware = (
   next: NextFunction,
 ) => {
   const userId = req.session?.passport?.user ?? '';
-  console.log({userId})
+  console.log({ userId });
   const sessionId = req.sessionID;
-  console.log({sessionId})
+  console.log({ sessionId });
   req.logout((err) => {
     if (err) {
       return next(err);
@@ -26,8 +29,7 @@ export const logoutMiddleware = (
         users.splice(index, 1);
       }
       removeSessionFromDataBase(userId);
-
     });
-    next()
+    next();
   });
 };

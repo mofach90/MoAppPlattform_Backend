@@ -1,16 +1,21 @@
 import { createLogger, format, transports } from 'winston';
 
 const logger = createLogger({
-  levels:{
-    'debug':2,
-    'error':0,
-    'info':2,
-    'warn':1,
-    },  
-    format: format.combine(
+  levels: {
+    debug: 2,
+    error: 0,
+    info: 2,
+    warn: 1,
+  },
+  format: format.combine(
     format.colorize({
       all: true,
-      colors: { info: 'yellow', error: 'red', warn: 'magentaBG', debug: 'cyanBG' },
+      colors: {
+        info: 'yellow',
+        error: 'red',
+        warn: 'magentaBG',
+        debug: 'cyanBG',
+      },
     }),
     format.timestamp(),
     format.printf(({ timestamp, level, message, ...meta }) => {
