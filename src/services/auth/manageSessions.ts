@@ -13,6 +13,7 @@ export function manageSessions(
 ) {
   const sessionId = req.session.id;
   const userId = req.session?.passport?.user;
+  console.log("This is the base url from manageSession",req.headers.referer)
   if (userId) {
     if (isValidSession(userId, sessionId)) {
       logger.info(' Your Session Still Valid , No need to Authenticate again ');
@@ -28,6 +29,8 @@ export function manageSessions(
     logger.error(
       'There is no SessionId Found You need to first Authenticate ---> to Login ',
     );
+    console.log("this is the req.headers",req.headers)
+    console.log(res.header)
     next();
   }
 }

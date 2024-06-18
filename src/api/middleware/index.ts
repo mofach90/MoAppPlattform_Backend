@@ -1,3 +1,4 @@
+import cors from 'cors';
 import { Router } from 'express';
 import passport from 'passport';
 import { jsonParser } from '../../services/basic/bodyParser';
@@ -15,8 +16,18 @@ export function registerMiddleware(router: Router): void {
   checkSessionSecretKey();
   router.use(sessionFactory);
   router.use(sessionLogger); // Log session details only for Dev - TODO Delete
-  router.use(corsMiddleware);
+  router.use(
+    cors({
+      origin: 'http://localhost:3500',
+      credentials: true,
+      optionsSuccessStatus: 200,
+      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+      allowedHeaders: 'Content-Type,Authorization',
+    }),
+  );
+  router.options('*', corsMiddleware);
   router.use(jsonParser);
   router.use(sanitizeMiddleware);
   router.use(passport.initialize());
+  router.use(passport.session());
 }

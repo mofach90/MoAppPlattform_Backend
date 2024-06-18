@@ -13,7 +13,6 @@ const sessionFactory = session({
     sameSite: 'lax', // helps against Cross-Site Request Forgery (CSRF) attacks
   },
   store: new session.MemoryStore(),
-  unset: 'destroy',
 });
 
 // Middleware to log session details

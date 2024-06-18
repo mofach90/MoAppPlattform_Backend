@@ -6,7 +6,10 @@ export function prefetchDetector(
   res: Response,
   next: NextFunction,
 ) {
-  if (
+  // Check if the request is a CORS preflight request
+  if (req.method === 'OPTIONS') {
+    next(); // Let CORS middleware handle preflight requests
+  } else if (
     req.headers['purpose'] === 'prefetch' ||
     req.headers['x-purpose'] === 'prefetch'
   ) {

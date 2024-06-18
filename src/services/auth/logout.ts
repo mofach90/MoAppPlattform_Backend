@@ -1,11 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import passport from 'passport';
-import logger from '../../config/logger';
-import {
-  addSessionToDataBase,
-  removeSessionFromDataBase,
-} from '../basic/validSessionFactory';
 import { users } from '../../config/passport-config';
+import { removeSessionFromDataBase } from '../basic/validSessionFactory';
 
 export const logoutMiddleware = (
   req: Request,
