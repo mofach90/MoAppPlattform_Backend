@@ -11,14 +11,14 @@ declare module 'express-session' {
 }
 
 export const checkAuthSessionIdCookie = (req: Request, res: Response) => {
-  console.log("The req.session.user From Session Id :", req.session.user) // TODO delete
+  console.log('The req.session.user From Session Id :', req.session.user); // TODO delete
   if (req.session.user) {
-    console.log("Valid SessionId message From Session Id :", req.session.user) // TODO delete
+    console.log('Valid SessionId message From Session Id :', req.session.user); // TODO delete
     res
-    .status(200)
-    .send({ message: 'Valid SessionId', isAuthenticatedSessionId: true });
+      .status(200)
+      .send({ message: 'Valid SessionId', isAuthenticatedSessionId: true });
   } else {
-    console.log("not valid message From Session Id :", req.session.user) // TODO delete
+    console.log('not valid message From Session Id :', req.session.user); // TODO delete
     res.status(401).send({
       message: 'SessionId not Valid',
       isAuthenticatedSessionId: false,
@@ -64,16 +64,16 @@ export const loginUsingSessionId = (req: Request, res: Response) => {
       logger.error('Session regeneration failed', { error: err });
       return res.status(500).send('Internal Server Error');
     }
-    console.log("req.session.user before: ",req.session.user)
-    console.log("req.body.userName: ",req.body.userName)
+    console.log('req.session.user before: ', req.session.user);
+    console.log('req.body.userName: ', req.body.userName);
     req.session.user = req.body.userName;
-    console.log("req.session.user after: ",req.session.user)
+    console.log('req.session.user after: ', req.session.user);
     req.session.save(function (err) {
       if (err) {
         logger.error('Session save failed', { error: err });
         return res.status(500).send('Internal Server Error');
       }
-      console.log("After saving session:", req.session.user);
+      console.log('After saving session:', req.session.user);
       res
         .status(200)
         .json({ message: 'Login successful', sessionID: req.sessionID });
@@ -81,8 +81,10 @@ export const loginUsingSessionId = (req: Request, res: Response) => {
   });
   logger.info('Form-Based-Succeeded');
   logger.info(`req.session at the end of loginUsingSessionId ${req.sessionID}`);
-  console.log("The req.session.user From loginUsingSessionId :", req.session.user) // TODO delete
-
+  console.log(
+    'The req.session.user From loginUsingSessionId :',
+    req.session.user,
+  ); // TODO delete
 };
 export const loginUsingBasicAuthentication = (req: Request, res: Response) => {
   res.status(200).send({
@@ -95,7 +97,6 @@ export const googleAuthenticationCallbackController = (
   req: Request,
   res: Response,
 ) => {
-  
   // res.status(200).send({ message: "Google Authentication Succeed" }).redirect("http://localhost:3500/"); //Uncommewnt when working with Frontend
   // res.redirect('/');
   res.redirect('http://localhost:3500/');

@@ -16,12 +16,12 @@ export function initRestRoutes(router: Router): void {
         'Welcome to MoAppBackend, use the prefix api/v1 to use our api features ',
       );
   });
-  router.use("*", (req:Request,res:Response,next:NextFunction)=>{
-    console.log("requested Url",req.url)
-    console.log("base requested",req.baseUrl)
-    console.log("origin requested",req.originalUrl)
-    next()
-  })
+  router.use('*', (req: Request, res: Response, next: NextFunction) => {
+    console.log('requested Url', req.url);
+    console.log('base requested', req.baseUrl);
+    console.log('origin requested', req.originalUrl);
+    next();
+  });
   registerMiddleware(router);
-  registerApiRoutes(router,prefix);
+  registerApiRoutes(router, prefix);
 }

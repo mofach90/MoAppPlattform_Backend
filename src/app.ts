@@ -7,4 +7,3 @@ const port = assignPort();
 export const server = app.listen(port, () => {
   logger.info(`server running at http:\\localhost:${port}`);
 });
-
