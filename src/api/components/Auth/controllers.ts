@@ -97,10 +97,6 @@ export const googleAuthenticationCallbackController = (
   req: Request,
   res: Response,
 ) => {
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
   // res.status(200).send({ message: "Google Authentication Succeed" }).redirect("http://localhost:3500/"); //Uncommewnt when working with Frontend
   // res.redirect('/');
   res.redirect('http://localhost:3500/dashboard');
@@ -110,7 +106,7 @@ export const logoutController = (req: Request, res: Response) => {
   // res.redirect('https://accounts.google.com/logout');  // TODO only for Dev - Delete
   res.clearCookie('connect.sid');
 
-  res.status(200).json({message:"Logout Succeed"});
+  res.status(200).json({ message: 'Logout Succeed' });
 };
 
 export const clearController = (
