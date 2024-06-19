@@ -9,7 +9,7 @@ export const googleAuthenticationCallback = (
   next: NextFunction,
 ) => {
   logger.debug('Start GOOGLE Authentication callback ');
-  passport.authenticate('google', { failureRedirect: '/' }, (err, user) => {
+  passport.authenticate('google', {successRedirect: "http://localhost:3500/about" , failureRedirect: '/' }, (err, user) => {
     logger.debug(' 1 ');
 
     if (err) {

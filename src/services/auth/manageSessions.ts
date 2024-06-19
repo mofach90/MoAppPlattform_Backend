@@ -13,12 +13,17 @@ export function manageSessions(
 ) {
   const sessionId = req.session.id;
   const userId = req.session?.passport?.user;
+<<<<<<< Updated upstream
   console.log('This is the base url from manageSession', req.headers.referer);
+=======
+  console.log("This is the base url from manageSession in manage session",req.headers.referer)
+>>>>>>> Stashed changes
   if (userId) {
     if (isValidSession(userId, sessionId)) {
       logger.info(' Your Session Still Valid , No need to Authenticate again ');
       // res.status(200).send('SessionId Still Valid');
-      res.redirect('/');
+      // res.redirect('/');
+      res.redirect('http://localhost:3500/dashboard');
     } else {
       logger.error('Session not valid');
       removeSessionFromDataBase(userId);
@@ -29,8 +34,13 @@ export function manageSessions(
     logger.error(
       'There is no SessionId Found You need to first Authenticate ---> to Login ',
     );
+<<<<<<< Updated upstream
     console.log('this is the req.headers', req.headers);
     console.log(res.header);
+=======
+    // console.log("this is the req.headers",req.headers)
+    // console.log(res.header)
+>>>>>>> Stashed changes
     next();
   }
 }

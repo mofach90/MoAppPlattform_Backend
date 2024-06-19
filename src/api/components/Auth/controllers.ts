@@ -46,7 +46,7 @@ export const loginUsingJwtLocalStorage = (req: Request, res: Response) => {
 };
 export const loginUsingJwtCookie = (req: Request, res: Response) => {
   const token = tokenGenerator(req.body.userName);
-  res.cookie('jwt', token, {
+  res.cookie('connect.sid', token, {
     httpOnly: true,
     secure: process.env.NODE_ENV == 'production',
     sameSite: 'lax',
@@ -97,16 +97,20 @@ export const googleAuthenticationCallbackController = (
   req: Request,
   res: Response,
 ) => {
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
   // res.status(200).send({ message: "Google Authentication Succeed" }).redirect("http://localhost:3500/"); //Uncommewnt when working with Frontend
   // res.redirect('/');
-  res.redirect('http://localhost:3500/');
+  res.redirect('http://localhost:3500/dashboard');
 };
 export const logoutController = (req: Request, res: Response) => {
   // res.status(200).send({ message: "Google Authentication Succeed" }); //Uncommewnt when working with Frontend
   // res.redirect('https://accounts.google.com/logout');  // TODO only for Dev - Delete
   res.clearCookie('connect.sid');
 
-  res.redirect('/');
+  res.status(200).json({message:"Logout Succeed"});
 };
 
 export const clearController = (
