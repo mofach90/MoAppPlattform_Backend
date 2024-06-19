@@ -24,45 +24,44 @@ export function createAuthRoutes(): Router {
   const router = Router();
 
   router.get('/check-session-id-cookie', checkAuthSessionIdCookie);
-  
+
   router.get(
     '/check-jwt-local-storage',
     verifyJwtFromLocalStorage,
     checkAuthJwtLocalStorage,
-    );
-    
-    router.get('/check-jwt-cookie', verifyJwtFromCookie, checkAuthJwtCoookie);
-    
-    router.post(
-      '/login-jwt-in-localStorage',
-      formBasedAuth,
-      loginUsingJwtLocalStorage,
-      );
-      
-      router.post('/login-jwt-in-cookie', formBasedAuth, loginUsingJwtCookie);
-      
-      router.post('/login-sessionid', formBasedAuth, loginUsingSessionId);
-      
-      router.get(
-        '/login-basic-authentication',
-        basicAuthMiddleware,
-        loginUsingBasicAuthentication,
-        );
-        
-        router.get('/social-auth/google', manageSessions, googleAuthentication);
-        router.get('/check-google-auth', manageSessions, (req,res,next)=>{
-          res.status(403).send('in GOOGLE NOT AUTH ');
-        });
-        
-        router.get(
-          '/social-auth/google/callback',
-          googleAuthenticationCallback,
-          googleAuthenticationCallbackController,
-          );
-          
-          router.get('/social-auth/logout', logoutMiddleware, logoutController);
-          router.get('/clear', clearController);
-          
-          return router;
-          }
-          
+  );
+
+  router.get('/check-jwt-cookie', verifyJwtFromCookie, checkAuthJwtCoookie);
+
+  router.post(
+    '/login-jwt-in-localStorage',
+    formBasedAuth,
+    loginUsingJwtLocalStorage,
+  );
+
+  router.post('/login-jwt-in-cookie', formBasedAuth, loginUsingJwtCookie);
+
+  router.post('/login-sessionid', formBasedAuth, loginUsingSessionId);
+
+  router.get(
+    '/login-basic-authentication',
+    basicAuthMiddleware,
+    loginUsingBasicAuthentication,
+  );
+
+  router.get('/social-auth/google', manageSessions, googleAuthentication);
+  router.get('/check-google-auth', manageSessions, (req, res, next) => {
+    res.status(403).send('in GOOGLE NOT AUTH ');
+  });
+
+  router.get(
+    '/social-auth/google/callback',
+    googleAuthenticationCallback,
+    googleAuthenticationCallbackController,
+  );
+
+  router.get('/social-auth/logout', logoutMiddleware, logoutController);
+  router.get('/clear', clearController);
+
+  return router;
+}
