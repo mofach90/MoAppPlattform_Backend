@@ -12,7 +12,7 @@ export const facebookAuthenticationCallback = (
   passport.authenticate(
     'facebook',
     { failureRedirect: '/' },
-    (err:any, user:any) => {
+    (err: any, user: any) => {
       logger.debug(' 1 ');
 
       if (err) {

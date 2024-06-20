@@ -2,7 +2,10 @@ import 'dotenv/config';
 import passport from 'passport';
 import { Strategy as GoogleStrategy, Profile } from 'passport-google-oauth20';
 import logger from './logger';
-import { Strategy as FacebookStrategy, Profile as FacebookProfile } from 'passport-facebook';
+import {
+  Strategy as FacebookStrategy,
+  Profile as FacebookProfile,
+} from 'passport-facebook';
 
 export interface User {
   id: string;
