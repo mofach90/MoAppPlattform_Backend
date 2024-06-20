@@ -3,23 +3,23 @@ import passport from 'passport';
 import logger from '../../config/logger';
 import { addSessionToDataBase } from '../basic/validSessionFactory';
 
-export const googleAuthenticationCallback = (
+export const facebookAuthenticationCallback = (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
-  logger.debug('Start GOOGLE Authentication callback ');
+  logger.debug('Start facebook Authentication callback ');
   passport.authenticate(
-    'google',
+    'facebook',
     { failureRedirect: '/' },
-    (err, user) => {
+    (err:any, user:any) => {
       logger.debug(' 1 ');
 
       if (err) {
         logger.debug(' 2 ');
         return res
           .status(403)
-          .send({ message: `Google Authentication Failed error: ${err}` });
+          .send({ message: `facebook Authentication Failed error: ${err}` });
       }
       logger.debug('User:', user);
       logger.debug(' 3 ');

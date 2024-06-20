@@ -101,6 +101,14 @@ export const googleAuthenticationCallbackController = (
   // res.redirect('/');
   res.redirect('http://localhost:3500/dashboard');
 };
+export const facebookAuthenticationCallbackController = (
+  req: Request,
+  res: Response,
+) => {
+  // res.status(200).send({ message: "Google Authentication Succeed" }).redirect("http://localhost:3500/"); //Uncommewnt when working with Frontend
+  res.redirect('/');
+  // res.redirect('http://localhost:3500/dashboard');
+};
 export const logoutController = (req: Request, res: Response) => {
   // res.status(200).send({ message: "Google Authentication Succeed" }); //Uncommewnt when working with Frontend
   // res.redirect('https://accounts.google.com/logout');  // TODO only for Dev - Delete
