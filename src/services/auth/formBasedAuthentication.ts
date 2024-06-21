@@ -10,7 +10,6 @@ const formBasedAuth = async (
   next: NextFunction,
 ) => {
   try {
-
     if (await isSuccessfullyChecked(req)) {
       logger.info('Authentication successful');
       return next();

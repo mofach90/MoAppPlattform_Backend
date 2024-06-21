@@ -74,7 +74,6 @@ export function createAuthRoutes(): Router {
     facebookAuthenticationCallbackController,
   );
 
-
   router.get('/social-auth/logout', logoutMiddleware, logoutController);
   router.get('/clear', clearController);
 

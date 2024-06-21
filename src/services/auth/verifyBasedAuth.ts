@@ -27,9 +27,11 @@ const verifyBasicAuth = (req: Request, res: Response, next: NextFunction) => {
   }
   const parsedCookies = cookie.parse(cookies);
   const authorization = parsedCookies['connect.sid'];
-    if (!authorization) {
-      return res.status(403).json({ message: 'No authorization in cookies found' });
-    }
+  if (!authorization) {
+    return res
+      .status(403)
+      .json({ message: 'No authorization in cookies found' });
+  }
 
   const [userName, password] = decodeLoginData(authorization);
   const isLoginValid = checkLoginValidity(userName, password);
