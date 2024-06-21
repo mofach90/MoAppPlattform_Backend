@@ -21,19 +21,21 @@ const checkLoginValidity = (userName: string, password: string) => {
 };
 
 const verifyBasicAuth = (req: Request, res: Response, next: NextFunction) => {
-  console.log("Start verifyBasicAuth !!! ")
+  console.log('Start verifyBasicAuth !!! ');
   const cookies = req.headers.cookie;
-  console.log("cookie:  ",cookies)
+  console.log('cookie:  ', cookies);
   if (!cookies) {
-    console.log("There is no cookie")
+    console.log('There is no cookie');
     return res.status(403).json({ message: 'No cookies found' });
   }
   const parsedCookies = cookie.parse(cookies);
   const authorization = parsedCookies['connect.sid'];
-    if (!authorization) {
-      console.log("There is no authorization")
-      return res.status(403).json({ message: 'No authorization in cookies found' });
-    }
+  if (!authorization) {
+    console.log('There is no authorization');
+    return res
+      .status(403)
+      .json({ message: 'No authorization in cookies found' });
+  }
 
   console.log('authorization from  verifyBasicAUth: ', authorization);
   const [userName, password] = decodeLoginData(authorization);
