@@ -3,7 +3,7 @@ name: Format Code
 on:
   push:
     branches:
-      - refactor/folder-structure/mo
+      - feature/social-sign-in/mo
       - main
   pull_request:
     branches:

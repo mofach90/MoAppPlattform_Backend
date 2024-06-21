@@ -3,3 +3,4 @@ node_modules/
 dist
 .vscode
 combined.log
+test.ts

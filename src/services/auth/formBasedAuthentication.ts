@@ -11,15 +11,14 @@ const formBasedAuth = async (
 ) => {
   try {
     if (await isSuccessfullyChecked(req)) {
-      logger.info('Authentication successful', { userName: req.body.userName });
-      res.set('Content-Type', 'application/json');
+      logger.info('Authentication successful');
       return next();
     } else {
-      logger.warn('Authentication failed', { userName: req.body.userName });
+      logger.warn('Authentication failed');
       res.status(401).send('False Credentials');
     }
   } catch (error) {
-    logger.error('Error occured within form-based authentication', { error });
+    logger.error('Error occured within form-based authentication');
     res.status(500).send('Internal Server Failure');
   }
 };

@@ -18,9 +18,7 @@ export const verifyJwtFromCookie = (
   }
 
   const parsedCookies = cookie.parse(cookies);
-  const token = parsedCookies['jwt'];
-
-  logger.warn(token);
+  const token = parsedCookies['connect.sid'];
   if (!token) {
     return res
       .status(403)

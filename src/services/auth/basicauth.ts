@@ -25,13 +25,15 @@ const basicAuthMiddleware = (
   next: NextFunction,
 ) => {
   const [userName, password] = decodeLoginData(req.headers.authorization ?? '');
+
   const isLoginValid = checkLoginValidity(userName, password);
+
   if (isLoginValid) {
     return next();
+  } else {
+    res.set('WWW-Authenticate', 'Basic realm="/"');
+    res.status(401).send('Require Authentication');
   }
-
-  res.set('WWW-Authenticate', 'Basic realm="/"');
-  res.status(401).send('Require Authentication');
 };
 
 export { basicAuthMiddleware };
