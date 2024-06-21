@@ -10,19 +10,16 @@ const formBasedAuth = async (
   next: NextFunction,
 ) => {
   try {
-    logger.info(`req.session at the begin of formBasedAuth ${req.sessionID}`); //TODO delete
 
     if (await isSuccessfullyChecked(req)) {
-      logger.info('Authentication successful', { userName: req.body.userName });
-      logger.info(`req.session at the end of formBasedAuth ${req.sessionID}`); //TODO delete
-
+      logger.info('Authentication successful');
       return next();
     } else {
-      logger.warn('Authentication failed', { userName: req.body.userName });
+      logger.warn('Authentication failed');
       res.status(401).send('False Credentials');
     }
   } catch (error) {
-    logger.error('Error occured within form-based authentication', { error });
+    logger.error('Error occured within form-based authentication');
     res.status(500).send('Internal Server Failure');
   }
 };

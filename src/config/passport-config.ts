@@ -57,7 +57,7 @@ passport.use(
         };
         users.push(user);
       }
-      logger.info('Current users', users);
+      logger.info('Current users', users); // TODO delete when PRODUCTION
       return done(null, user);
     },
   ),
@@ -86,7 +86,7 @@ passport.use(
         };
         users.push(user);
       }
-      logger.info('Current users', users);
+      logger.info('Current users', users);  // TODO delete when PRODUCTION
       return done(null, user);
     },
   ),

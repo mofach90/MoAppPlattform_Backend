@@ -13,12 +13,9 @@ export function manageSessions(
 ) {
   const sessionId = req.session.id;
   const userId = req.session?.passport?.user;
-  // console.log("This is the base url from manageSession in manage session",req.headers.referer)
   if (userId) {
     if (isValidSession(userId, sessionId)) {
       logger.info(' Your Session Still Valid , No need to Authenticate again ');
-      // res.status(200).send('SessionId Still Valid');
-      // res.redirect('/');
       res.redirect('http://localhost:3500/dashboard');
     } else {
       logger.error('Session not valid');
@@ -27,11 +24,7 @@ export function manageSessions(
     }
   } else {
     purgeSessionDataBase(sessionId);
-    logger.error(
-      'There is no SessionId Found You need to first Authenticate ---> to Login ',
-    );
-    // console.log("this is the req.headers",req.headers)
-    // console.log(res.header)
+    logger.error('There is no userId Found You need to first Authenticate');
     next();
   }
 }

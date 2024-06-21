@@ -9,9 +9,6 @@ export const logoutMiddleware = (
   next: NextFunction,
 ) => {
   const userId = req.session?.passport?.user ?? '';
-  console.log({ userId });
-  const sessionId = req.sessionID;
-  console.log({ sessionId });
   req.logout((err) => {
     if (err) {
       logger.error('logout failed', { error: err });

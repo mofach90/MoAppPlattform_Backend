@@ -15,7 +15,7 @@ const sessionFactory = session({
   store: new session.MemoryStore(),
 });
 
-// Middleware to log session details
+// Middleware to log session details for DEV purpose
 const sessionLogger = (req: Request, _: Response, next: NextFunction) => {
   logger.info(`Session ID: ${req.session.id}`);
   next();

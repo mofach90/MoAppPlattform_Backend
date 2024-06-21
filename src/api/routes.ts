@@ -9,7 +9,7 @@ export function initRestRoutes(router: Router): void {
 
   router.get(prefix, (req: Request, res: Response) => res.send('PING'));
   router.get('/', (req, res) => {
-    logger.info('validSessions:', Array.from(validSessions));
+    logger.info('validSessions:', Array.from(validSessions)); // TODO delete in PRODUCTION
     res
       .status(200)
       .send(
@@ -17,9 +17,6 @@ export function initRestRoutes(router: Router): void {
       );
   });
   router.use('*', (req: Request, res: Response, next: NextFunction) => {
-    console.log('requested Url', req.url);
-    console.log('base requested', req.baseUrl);
-    console.log('origin requested', req.originalUrl);
     next();
   });
   registerMiddleware(router);

@@ -24,17 +24,10 @@ const basicAuthMiddleware = (
   res: Response,
   next: NextFunction,
 ) => {
-  console.log('req.headers.authorization', req.headers.authorization);
   const [userName, password] = decodeLoginData(req.headers.authorization ?? '');
-  console.log('usernsame', userName);
-  console.log('password', password);
+
   const isLoginValid = checkLoginValidity(userName, password);
-  console.log('message   : ', req.query.message);
-  console.log('isLoginValid   : ', isLoginValid);
-  console.log(
-    'condition',
-    !isLoginValid && req.query.message === 'Simple Basic Authentication',
-  );
+
   if (isLoginValid) {
     return next();
   } else {

@@ -73,28 +73,7 @@ export function createAuthRoutes(): Router {
     facebookAuthenticationCallback,
     facebookAuthenticationCallbackController,
   );
-  // router.get(
-  //   '/social-auth/facebook',
-  //   (req, res, next) => {
-  //     return passport.authenticate('facebook', {
-  //            failureRedirect: '/login',
-  //            scope: ['profile', 'email']
-  //           //  session: false
-  //            },
-  //            (err:any, user:any, info:any) => {
-  //             console.log("user: ",user)
-  //             console.log("info: ",info)
-  //            if(err) {
-  //              logger.error("this is the auth error",err);
-  //              res.redirect('/');
-  //            }
-  //            else
-  //            {
-  //                next();
-  //            }
-  //        }
-  //       )(req, res, next);
-  //    })
+
 
   router.get('/social-auth/logout', logoutMiddleware, logoutController);
   router.get('/clear', clearController);
