@@ -9,6 +9,7 @@ import {
   checkAuthJwtCoookie,
   checkAuthJwtLocalStorage,
   checkAuthSessionIdCookie,
+  checkBasicAuth,
   clearController,
   facebookAuthenticationCallbackController,
   googleAuthenticationCallbackController,
@@ -24,6 +25,7 @@ import { facebookAuthentication } from '../../../services/auth/facebookAuthentic
 import { facebookAuthenticationCallback } from '../../../services/auth/facebookAuthenticationCallback';
 import passport from '../../../config/passport-config';
 import logger from '../../../config/logger';
+import { verifyBasicAuth } from '../../../services/auth/verifyBasedAuth';
 
 export function createAuthRoutes(): Router {
   const router = Router();
@@ -37,6 +39,7 @@ export function createAuthRoutes(): Router {
   );
 
   router.get('/check-jwt-cookie', verifyJwtFromCookie, checkAuthJwtCoookie);
+  router.get('/check-basic-authentication', verifyBasicAuth, checkBasicAuth);
 
   router.post(
     '/login-jwt-in-localStorage',

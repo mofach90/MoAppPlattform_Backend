@@ -38,6 +38,14 @@ export const checkAuthJwtCoookie = (req: Request, res: Response) => {
     .status(200)
     .send({ message: 'Valid Token', isAuthenticatedJwtCookie: true });
 };
+
+export const checkBasicAuth = (req: Request, res: Response) => {
+  res.status(200).send({
+    message: 'Basic Authentication Valid Check ',
+    isAuthenticatedBasic: true,
+  });
+};
+
 export const loginUsingJwtLocalStorage = (req: Request, res: Response) => {
   const token = tokenGenerator(req.body.userName);
   res.setHeader('Authorization', `Bearer ${token}`);
@@ -87,9 +95,9 @@ export const loginUsingSessionId = (req: Request, res: Response) => {
   ); // TODO delete
 };
 export const loginUsingBasicAuthentication = (req: Request, res: Response) => {
+  res.cookie('connect.sid', req.headers.authorization);
   res.status(200).send({
     message: 'Basic Authentication Succeed ',
-    isAuthenticatedBasic: true,
   });
 };
 
@@ -106,8 +114,8 @@ export const facebookAuthenticationCallbackController = (
   res: Response,
 ) => {
   // res.status(200).send({ message: "Google Authentication Succeed" }).redirect("http://localhost:3500/"); //Uncommewnt when working with Frontend
-  res.redirect('/');
-  // res.redirect('http://localhost:3500/dashboard');
+  // res.redirect('/');
+  res.redirect('http://localhost:3500/dashboard');
 };
 export const logoutController = (req: Request, res: Response) => {
   // res.status(200).send({ message: "Google Authentication Succeed" }); //Uncommewnt when working with Frontend
