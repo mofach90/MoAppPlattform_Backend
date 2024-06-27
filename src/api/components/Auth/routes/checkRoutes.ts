@@ -12,6 +12,7 @@ import {
 
 export function createCheckRoutes(router: Router) {
   router.get('/check-session-id-cookie', checkAuthSessionIdCookie);
+  router.get('/check-firebase-authentication', checkAuthSessionIdCookie);
   router.get(
     '/check-jwt-local-storage',
     verifyJwtFromLocalStorage,

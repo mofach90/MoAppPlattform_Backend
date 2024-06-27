@@ -13,6 +13,19 @@ export const checkAuthSessionIdCookie = (req: Request, res: Response) => {
     });
   }
 };
+export const checkFirebaseAuthCookie = (req: Request, res: Response) => {
+  console.log("req. session checkFirebaseAuthCookie: ",req.session)
+  if (req.session.firebaseUser) {
+    res
+      .status(200)
+      .send({ message: 'Valid SessionId', isAuthenticatedFirebaseEmailPassword: true });
+  } else {
+    res.status(401).send({
+      message: 'SessionId not Valid',
+      isAuthenticatedFirebaseEmailPassword: false,
+    });
+  }
+};
 
 export const checkAuthJwtLocalStorage = (req: Request, res: Response) => {
   res.set('Content-Type', 'application/json; charset=utf-8');

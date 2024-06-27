@@ -6,6 +6,7 @@ import { tokenGenerator } from '../../../../services/utilities/generateToken';
 declare module 'express-session' {
   interface Session {
     user: string;
+    firebaseUser: string;
     passport: { user: string };
   }
 }
@@ -75,18 +76,25 @@ export const loginFirebaseWithEmailUserNameController = (
   res: Response,
 ) => {
   if (req.user) {
-      const sessionId = req.session.id;
-      const userId = req.user?.id ?? '';
-      req.session.user = userId
-      if (sessionId && userId) {
-        addSessionToDataBase(userId, sessionId);
-        console.log("REQ.SESSION : ",req.session)
-        return res
-          .status(200)
-          .json({ message: `User Logged In ` });
-      }
-    logger.info('success from login firebase controller');
+    const sessionId = req.session.id;
+    const userId = req.user?.id ?? '';
+    req.session.firebaseUser = userId;
+    res.cookie('connect.sid', sessionId, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 2 * 1000, // maxAge should be in milliseconds
+    });
+
+    if (sessionId && userId) {
+      addSessionToDataBase(userId, sessionId);
+      console.log("REQ.SESSION : ", req.session);
+      logger.info('success from login firebase controller');
+      return res.status(200).json({ message: `User Logged In ` });
+    } else {
+      return res.status(500).json({ message: 'Session or User ID is missing' });
+    }
   } else {
-    res.status(401).json('UNAUTHORIZED REQUEST!');
+    return res.status(401).json('UNAUTHORIZED REQUEST!');
   }
 };
