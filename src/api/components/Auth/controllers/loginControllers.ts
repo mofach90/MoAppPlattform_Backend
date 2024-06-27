@@ -83,7 +83,7 @@ export const loginFirebaseWithEmailUserNameController = (
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: 60 * 60 * 2 * 1000, // maxAge should be in milliseconds
+      maxAge: 60 * 60 * 2 * 1000, 
     });
 
     if (sessionId && userId) {
