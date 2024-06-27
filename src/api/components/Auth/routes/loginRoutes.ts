@@ -9,11 +9,13 @@ import { manageSessions } from '../../../../services/auth/manageSessions';
 import {
   facebookAuthenticationCallbackController,
   googleAuthenticationCallbackController,
+  loginFirebaseWithEmailUserNameController,
   loginUsingBasicAuthentication,
   loginUsingJwtCookie,
   loginUsingJwtLocalStorage,
   loginUsingSessionId,
 } from '../controllers/loginControllers';
+import { verifyFirebaseToken } from '../../../../services/auth/verifyFirebaseToken';
 
 export function createLoginRoutes(router: Router) {
   router.post(
@@ -23,6 +25,8 @@ export function createLoginRoutes(router: Router) {
   );
 
   router.post('/login-jwt-in-cookie', formBasedAuth, loginUsingJwtCookie);
+
+  router.post('/login-firebase-email-password', verifyFirebaseToken ,loginFirebaseWithEmailUserNameController )
 
   router.post('/login-sessionid', formBasedAuth, loginUsingSessionId);
 

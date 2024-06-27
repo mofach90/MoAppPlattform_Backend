@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 
 export const checkAuthSessionIdCookie = (req: Request, res: Response) => {
+  console.log("req. session checkAuthSessionIdCookie: ",req.session)
   if (req.session.user) {
     res
       .status(200)

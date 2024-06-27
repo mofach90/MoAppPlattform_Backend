@@ -1,0 +1,15 @@
+import admin, { ServiceAccount } from 'firebase-admin';
+import { Auth } from 'firebase-admin/lib/auth/auth';
+
+const serviceAccount: ServiceAccount = {
+  projectId: 'moappplattform',
+  privateKey:
+    '-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCc9ITuaLLGkxWt\nMSf5ab64HCsbDk+VHvURc2yFghhaFkGUamM9nGmlHjQkZ3tWsm0FZEPi6/WkUNi0\njH/wKbF+WEHwb2OKj48uiueFdnRTZBWkx+r2j1oRaWQM/af2/NDljITb7MIFEtxe\nAHa+XeJbos7DNs5pzTwgljkwhc+JicSosn4sOhuOhk3SM9Hu5zu26DMOMKtKSeI7\nqCChDyULoir0y9NfeOUiX/04+TVwuRprgAbu00yHs7034nsdzfEMmYTzO+Ndbn6M\ng4YnGpfnnfYjGbwQWQ+Q60iYS/a/qnn2h4ELZTRpreVoBr4fOsCONlVC8BbYdK4q\nVbldqEWnAgMBAAECggEAK7gUmxAA1D0+KXrqxpeE72WxQB0RX9k6rDy5esrNG7Ld\nW4jy0cOSzdKG9aj5eyHCKmFOY5QUXUvDwS7tqCkE7suIun9ce8kXOgCpEsz3BA95\n0+d39Gvjy7vOiavSMIMlcPteOqBNPvqM9YYtjUM7fQjxjQDkKCZp3C3cCj8LmySc\nKOiZQeBvLHkAspycmJHF6ITUihsY01kQPScv0LaP4SW4rmowSWJh0WGJj6mU0Mpi\nOp9qU6ehDREbvaUUtmyxHaqw4BzVXncX5SkCFt/lHbA3dgvhyQTZmR0NpomuHrLd\nzDrYQYbFbNTgt2cyBsyxNEM9205duzvz7OrEdk93uQKBgQDQU3DNJQPHd2dr0Oty\nfRIibhuq5W07Aca1to9uH9fpzAtdimfCl+k0a+prrQcPKP4Q9jP3AN0GYC+mOvTi\ngrQBolU82Kpv6VPYLeAFxuJmbasYMrm6dxLf9W6HaI5VibmstN8/bhEAiBqYRR3N\nuJraO3w5PWl87SNbK3GdEt0alQKBgQDA35MGm3Wk5TVVCBgERmVzVuyhh1t/OeMr\nwnUkGNGxTYGLi4fGEWn6ZVP4CsJHypFNdVSE5ibJH+YhlElubhDlftP1myBNXIKP\nMv+sv37qCD21ZKdN6pLmcm5l18CX75IUaR/iat8tQOrUIx8bJQ3tr6ejhgU/WL92\nhOeKfPiMSwKBgQC7odugOW1s82OH3RSi+nkh35A13QwDsHbb5YDLzAx4/Blkd6s6\nvf4CBAyQTLhl9CLY/hcRqopoGqvwCXvUo6ojKqWg9viTcVDeDXuPWHFDlhUa510W\nz/aFFpYliYthCXndTs8gXy8bDnr9mIreZh263wbkuyZOqXtFuxxKP9o6/QKBgEzk\nFMoqidEOK5/VlTWHFwTPX5DZ1Ik4+67DXE3isx47Ju0J2DwHTzeq07nsGB3kzN6T\navl8g3PlCqrSYh/rM0M6t6ePi2Yr/kS2cSVeRmtok6lQEj7GyH+kmQxy4e3wbU1D\nx5lNP+HbooKl6c25jP736x4O3OKvL81BGMmmHrRXAoGAEl0vueSWNK3J4eDf4hVd\nHJ2SEQrPKvU4hPakraEpkYRWDw5EK+tQ4WL3CYySmKDjWYF4IInz/mFe8RzT2oSd\nTCU2jkjENR/ZjRyLWrLM0J2FdLGoliCU7POpYJ5FCpHyQQJz5n8MSeGNOjcZ0LIU\nUzKnyOb4drA9awf77AuvVCc=\n-----END PRIVATE KEY-----\n',
+  clientEmail: 'firebase-adminsdk-l5iyq@moappplattform.iam.gserviceaccount.com',
+};
+
+const firebaseApp = admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+
+export const auth: Auth = firebaseApp.auth();

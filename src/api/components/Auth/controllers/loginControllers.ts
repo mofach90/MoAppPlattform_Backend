@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import logger from '../../../../config/logger';
+import { addSessionToDataBase } from '../../../../services/basic/validSessionFactory';
 import { tokenGenerator } from '../../../../services/utilities/generateToken';
 
 declare module 'express-session' {
@@ -67,4 +68,25 @@ export const facebookAuthenticationCallbackController = (
   res: Response,
 ) => {
   res.redirect('http://localhost:3500/dashboard');
+};
+
+export const loginFirebaseWithEmailUserNameController = (
+  req: Request,
+  res: Response,
+) => {
+  if (req.user) {
+      const sessionId = req.session.id;
+      const userId = req.user?.id ?? '';
+      req.session.user = userId
+      if (sessionId && userId) {
+        addSessionToDataBase(userId, sessionId);
+        console.log("REQ.SESSION : ",req.session)
+        return res
+          .status(200)
+          .json({ message: `User Logged In ` });
+      }
+    logger.info('success from login firebase controller');
+  } else {
+    res.status(401).json('UNAUTHORIZED REQUEST!');
+  }
 };

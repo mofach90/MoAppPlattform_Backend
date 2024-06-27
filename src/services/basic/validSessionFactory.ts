@@ -4,10 +4,13 @@ export const validSessions = new Map<string, string>();
 
 export async function addSessionToDataBase(userId: string, sessionId: string) {
   validSessions.set(userId, sessionId);
-}
-
-export function removeSessionFromDataBase(userId: string) {
-  validSessions.delete(userId);
+  logger.info({ validSessions });
+  }
+  
+  export function removeSessionFromDataBase(userId: string) {
+    logger.error({ validSessions });
+    validSessions.delete(userId);
+    logger.warn({ validSessions });
 }
 
 export function isValidSession(userId: string, sessionId: string): boolean {
