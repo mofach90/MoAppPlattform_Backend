@@ -71,7 +71,7 @@ export const facebookAuthenticationCallbackController = (
   res.redirect('http://localhost:3500/dashboard');
 };
 
-export const loginFirebaseWithEmailUserNameController = (
+export const loginFirebaseWithEmailUserNameOrAnonymouslyController = (
   req: Request,
   res: Response,
 ) => {

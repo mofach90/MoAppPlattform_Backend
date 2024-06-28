@@ -9,7 +9,7 @@ import { manageSessions } from '../../../../services/auth/manageSessions';
 import {
   facebookAuthenticationCallbackController,
   googleAuthenticationCallbackController,
-  loginFirebaseWithEmailUserNameController,
+  loginFirebaseWithEmailUserNameOrAnonymouslyController,
   loginUsingBasicAuthentication,
   loginUsingJwtCookie,
   loginUsingJwtLocalStorage,
@@ -26,7 +26,7 @@ export function createLoginRoutes(router: Router) {
 
   router.post('/login-jwt-in-cookie', formBasedAuth, loginUsingJwtCookie);
 
-  router.post('/login-firebase-email-password', verifyFirebaseToken ,loginFirebaseWithEmailUserNameController )
+  router.post('/login-firebase-email-password-or-anonymously', verifyFirebaseToken ,loginFirebaseWithEmailUserNameOrAnonymouslyController )
 
   router.post('/login-sessionid', formBasedAuth, loginUsingSessionId);
 
