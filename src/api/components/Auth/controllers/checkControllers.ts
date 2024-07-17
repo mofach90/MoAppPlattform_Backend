@@ -15,14 +15,14 @@ export const checkAuthSessionIdCookie = (req: Request, res: Response) => {
 };
 export const checkFirebaseAuthCookie = (req: Request, res: Response) => {
   console.log("req. session checkFirebaseAuthCookie: ",req.session)
-  if (req.session.firebaseUser) {
+  if (req.session.user) {
     res
       .status(200)
-      .send({ message: 'Valid SessionId', isAuthenticatedFirebaseEmailPassword: true });
+      .send({ message: 'Valid SessionId', isAuthenticatedFirebase: true });
   } else {
     res.status(401).send({
       message: 'SessionId not Valid',
-      isAuthenticatedFirebaseEmailPassword: false,
+      isAuthenticatedFirebase: false,
     });
   }
 };

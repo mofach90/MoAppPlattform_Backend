@@ -6,20 +6,19 @@ import { tokenGenerator } from '../../../../services/utilities/generateToken';
 declare module 'express-session' {
   interface Session {
     user: string;
-    firebaseUser: string;
     passport: { user: string };
   }
 }
 
 export const loginUsingJwtLocalStorage = (req: Request, res: Response) => {
-  const token = tokenGenerator(req.body.userName);
+  const token = tokenGenerator(req.body.emailAdress);
   res.setHeader('Authorization', `Bearer ${token}`);
   res.status(200).json({ message: 'login successful', token });
   logger.info('JWT Based Authentication Succeeded');
 };
 
 export const loginUsingJwtCookie = (req: Request, res: Response) => {
-  const token = tokenGenerator(req.body.userName);
+  const token = tokenGenerator(req.body.emailAdress);
   res.cookie('connect.sid', token, {
     httpOnly: true,
     secure: process.env.NODE_ENV == 'production',
@@ -36,7 +35,7 @@ export const loginUsingSessionId = (req: Request, res: Response) => {
       logger.error('Session regeneration failed', { error: err });
       return res.status(500).send('Internal Server Error');
     }
-    req.session.user = req.body.userName;
+    req.session.user = req.body.emailAdress;
     req.session.save(function (err) {
       if (err) {
         logger.error('Session save failed', { error: err });
@@ -61,14 +60,14 @@ export const googleAuthenticationCallbackController = (
   req: Request,
   res: Response,
 ) => {
-  res.redirect('http://localhost:3500/dashboard');
+  res.redirect('http://localhost:3500/demo-dashboard');
 };
 
 export const facebookAuthenticationCallbackController = (
   req: Request,
   res: Response,
 ) => {
-  res.redirect('http://localhost:3500/dashboard');
+  res.redirect('http://localhost:3500/demo-dashboard');
 };
 
 export const loginFirebaseWithEmailUserNameOrAnonymouslyController = (
@@ -78,7 +77,7 @@ export const loginFirebaseWithEmailUserNameOrAnonymouslyController = (
   if (req.user) {
     const sessionId = req.session.id;
     const userId = req.user?.id ?? '';
-    req.session.firebaseUser = userId;
+    req.session.user = userId;
     res.cookie('connect.sid', sessionId, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',

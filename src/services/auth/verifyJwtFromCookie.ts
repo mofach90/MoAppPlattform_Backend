@@ -4,7 +4,7 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import logger from '../../config/logger';
 
 export interface DecodeType extends JwtPayload {
-  user?: string;
+  emailAdress?: string;
 }
 
 export const verifyJwtFromCookie = (
@@ -18,6 +18,7 @@ export const verifyJwtFromCookie = (
   }
 
   const parsedCookies = cookie.parse(cookies);
+  logger.info({parsedCookies})
   const token = parsedCookies['connect.sid'];
   if (!token) {
     return res
@@ -30,7 +31,9 @@ export const verifyJwtFromCookie = (
       token,
       process.env.JWT_SECRET ?? '',
     );
-    if (typeof decode === 'string' || decode.user !== process.env.USERNAME) {
+    logger.warn("decode",decode)
+
+    if (typeof decode === 'string' || decode.user !== process.env.EMAIL_ADRESS) {
       return res
         .status(401)
         .send({ message: 'Invalid Token', isAuthenticatedJwt: false });
