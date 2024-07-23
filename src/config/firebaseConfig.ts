@@ -1,6 +1,8 @@
 import admin, { ServiceAccount } from 'firebase-admin';
 import { Auth } from 'firebase-admin/lib/auth/auth';
 
+import { getFirestore, Timestamp, FieldValue, Filter } from 'firebase-admin/firestore'
+
 const serviceAccount: ServiceAccount = {
   projectId: process.env.SERVICE_ACCOUNT_PROJECT_ID,
   privateKey: process.env?.SERVICE_ACCOUNT_PRIVATE_KEY?.replace(/\\n/g, '\n') ?? '',
@@ -12,3 +14,6 @@ const firebaseApp = admin.initializeApp({
 });
 
 export const auth: Auth = firebaseApp.auth();
+
+export const db = getFirestore();
+
