@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
 export const checkAuthSessionIdCookie = (req: Request, res: Response) => {
-  console.log("req. session checkAuthSessionIdCookie: ",req.session)
+  console.log('req. session checkAuthSessionIdCookie: ', req.session);
   if (req.session.user) {
     res
       .status(200)
@@ -14,7 +14,7 @@ export const checkAuthSessionIdCookie = (req: Request, res: Response) => {
   }
 };
 export const checkFirebaseAuthCookie = (req: Request, res: Response) => {
-  console.log("req. session checkFirebaseAuthCookie: ",req.session)
+  console.log('req. session checkFirebaseAuthCookie: ', req.session);
   if (req.session.user) {
     res
       .status(200)
