@@ -3,23 +3,18 @@ import { db } from '../../../../config/firebaseConfig';
 import logger from '../../../../config/logger';
 
 export const createTask = async(req: Request, res: Response) => {
-//   console.log('req. session checkAuthSessionIdCookie: ');
-    //   res.status(200).send({
-    //   message: 'test confirmed new',
-    // });
+
   console.log('req. session checkAuthSessionIdCookie: ', req.session);
-  //   const user = req.session.user
   const user = "test-postman-user"
   const { title, description, isChecked } = req.body;
   console.log('req.body: ', req.body);
   
-  if (title && description 
-    // && isChecked
+  if (title && description && isChecked
 ) {
     const newTask= {
         title,
         description,
-        // completed: isChecked,
+        completed: isChecked,
         createdAt: new Date(),
         updatedAt: new Date(),
     }
