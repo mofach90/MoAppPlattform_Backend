@@ -8,7 +8,6 @@ import createDeleteTasksRoutes from './deleteTasks';
 const createTasksRoutes = (): Router => {
   const router = Router();
 
-
   createCreateTasksRoutes(router);
   // createGetTasksRoutes(router);
   // createDeleteTasksRoutes(router);

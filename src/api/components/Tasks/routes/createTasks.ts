@@ -2,7 +2,6 @@ import { Router } from 'express';
 import { createTask } from '../controllers/createTaskController';
 import { Request, Response } from 'express';
 
-
 const createCreateTasksRoutes = (router: Router) => {
   /*   create tasks routes   */
 
@@ -11,10 +10,7 @@ const createCreateTasksRoutes = (router: Router) => {
   //     message: 'test confirmed',
   //   });
   // })
-  router.post('/create-task',createTask)
-
-
-
+  router.post('/create-task', createTask);
 };
 
 export default createCreateTasksRoutes;
