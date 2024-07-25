@@ -26,13 +26,15 @@ export const createTask = async (req: Request, res: Response) => {
         .collection('tasks')
         .add(newTask);
 
-        const newCreatedTask = {
-          id: taskRef.id,
-          title: newTask.title,
-          description : newTask.description,
-          isChecked: newTask.isChecked,
-        };
-      res.status(201).send({ newCreatedTask:newCreatedTask, taskCreated: true });
+      const newCreatedTask = {
+        id: taskRef.id,
+        title: newTask.title,
+        description: newTask.description,
+        isChecked: newTask.isChecked,
+      };
+      res
+        .status(201)
+        .send({ newCreatedTask: newCreatedTask, taskCreated: true });
     } catch (error) {
       logger.error('Request to firebase failed with error:  ', error);
       res.status(402).send({ error: error });
