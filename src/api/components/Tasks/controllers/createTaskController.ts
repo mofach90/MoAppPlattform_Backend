@@ -5,7 +5,7 @@ import isTaskProperiesInBody from '../../../../services/utilities/isTaskProperie
 
 export const createTask = async (req: Request, res: Response) => {
   console.log('req. session checkAuthSessionIdCookie: ', req.session);
-  const user = 'test-postman-user2';
+  const user = req.session.user;
   const { title, description, isChecked } = req.body;
 
   if (isTaskProperiesInBody(req)) {
