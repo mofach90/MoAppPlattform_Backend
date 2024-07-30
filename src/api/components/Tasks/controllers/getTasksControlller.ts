@@ -5,8 +5,8 @@ import { Task } from '../../../../types/tasks';
 
 const getTasksController = async (req: Request, res: Response) => {
   try {
-    const user = 'ghghg';
-    console.log('Hello: ', user);
+    const user = req.session.user;
+    logger.info('User: ', user);
     const tasksSnapshot = await db
       .collection('users')
        .doc(user)
@@ -15,7 +15,7 @@ const getTasksController = async (req: Request, res: Response) => {
     const tasks: Task[] = [];
 
     if  (tasksSnapshot.empty) {
-      console.log('No such tasksSnapshotument!');
+      logger.error('No such tasksSnapshotument!');
       return res.status(404).json({ message: 'No Tasks found for this user' });
     }
 
@@ -29,7 +29,7 @@ const getTasksController = async (req: Request, res: Response) => {
     );
     logger.info("GetTask Result ", tasks)
 
-    return res.status(200).json(tasks);
+    return res.status(200).json({tasks:tasks});
   } catch (error) {
     logger.error('Error getting tasks:', error);
     return res.status(500).send('Internal Server Error');
