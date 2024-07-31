@@ -25,22 +25,25 @@ const formBasedAuth = async (
 
 const isSuccessfullyChecked = async (req: Request) => {
   try {
-    console.log("req.body",req.body)
+    console.log('req.body', req.body);
     const { emailAdress, password } = req.body;
     const storedemailAdress = process.env.EMAIL_ADRESS ?? '';
     const storedPassword = process.env.PASSWORD ?? '';
-    console.log({storedemailAdress})
-    console.log({emailAdress})
-    console.log({password})
+    console.log({ storedemailAdress });
+    console.log({ emailAdress });
+    console.log({ password });
     if (!storedemailAdress || !storedPassword) {
       throw new Error('Envirenment emailAdress or password are not set !!');
-      }
-      const compareResult = await bcrypt.compare(password, storedPassword);
-      console.log({compareResult})
-      if (!compareResult) {
-        return false;
-        }
-      console.log("compare result",emailAdress === storedemailAdress && compareResult)
+    }
+    const compareResult = await bcrypt.compare(password, storedPassword);
+    console.log({ compareResult });
+    if (!compareResult) {
+      return false;
+    }
+    console.log(
+      'compare result',
+      emailAdress === storedemailAdress && compareResult,
+    );
     return emailAdress === storedemailAdress && compareResult;
   } catch (error) {
     logger.error('Error occurred during password comparison', { error });

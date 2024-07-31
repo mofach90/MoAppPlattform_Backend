@@ -3,11 +3,12 @@ name: Format Code
 on:
   push:
     branches:
-      - feature/social-sign-in/mo
+      - feature/create-tasks/mo
       - main
   pull_request:
     branches:
       - main
+      - app/todo
 
 jobs:
   format:

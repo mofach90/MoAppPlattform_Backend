@@ -1,7 +1,8 @@
 import { Router } from 'express';
+import { createTask } from '../controllers/createTaskController';
 
 const createCreateTasksRoutes = (router: Router) => {
-  /*   create tasks routes   */
+  router.post('/create-task', createTask);
 };
 
 export default createCreateTasksRoutes;

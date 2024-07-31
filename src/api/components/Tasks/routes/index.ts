@@ -1,10 +1,13 @@
 import { Router } from 'express';
+import { Request, Response } from 'express';
+
+import createCreateTasksRoutes from './createTasks';
 import createGetTasksRoutes from './getTasks';
 
 const createTasksRoutes = (): Router => {
   const router = Router();
 
-  //  createCreateTasksRoutes(router);
+  createCreateTasksRoutes(router);
   createGetTasksRoutes(router);
   //  createDeleteTasksRoutes(router);
 
