@@ -9,17 +9,17 @@ const getTasksController = async (req: Request, res: Response) => {
     logger.info('User: ', user);
     const tasksSnapshot = await db
       .collection('users')
-       .doc(user)
+      .doc(user)
       .collection('tasks')
       .get();
     const tasks: Task[] = [];
 
-    if  (tasksSnapshot.empty) {
+    if (tasksSnapshot.empty) {
       logger.error('No such tasksSnapshotument!');
       return res.status(404).json({ message: 'No Tasks found for this user' });
     }
 
-   tasksSnapshot.forEach( tasksSnapshot =>
+    tasksSnapshot.forEach((tasksSnapshot) =>
       tasks.push({
         id: tasksSnapshot.id,
         title: tasksSnapshot.data().title,
@@ -27,9 +27,9 @@ const getTasksController = async (req: Request, res: Response) => {
         isChecked: tasksSnapshot.data().isChecked,
       }),
     );
-    logger.info("GetTask Result ", tasks)
+    logger.info('GetTask Result ', tasks);
 
-    return res.status(200).json({tasks:tasks});
+    return res.status(200).json({ tasks: tasks });
   } catch (error) {
     logger.error('Error getting tasks:', error);
     return res.status(500).send('Internal Server Error');
