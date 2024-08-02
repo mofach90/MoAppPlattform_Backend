@@ -1,17 +1,17 @@
 import { Router } from 'express';
-import { Request, Response } from 'express';
 
-import createCreateTasksRoutes from './createTasks';
-import createGetTasksRoutes from './getTasks';
+import createTasksRoutes from './createTasks';
+import getTasksRoutes from './deleteTasks';
+import deleteTasksRoutes from './getTasks';
 
-const createTasksRoutes = (): Router => {
+const tasksRoutes = (): Router => {
   const router = Router();
 
-  createCreateTasksRoutes(router);
-  createGetTasksRoutes(router);
-  //  createDeleteTasksRoutes(router);
+  createTasksRoutes(router);
+  getTasksRoutes(router);
+  deleteTasksRoutes(router);
 
   return router;
 };
 
-export default createTasksRoutes;
+export default tasksRoutes;

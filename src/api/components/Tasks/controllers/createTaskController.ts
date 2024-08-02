@@ -3,7 +3,7 @@ import { db } from '../../../../config/firebaseConfig';
 import logger from '../../../../config/logger';
 import isTaskProperiesInBody from '../../../../services/utilities/isTaskProperiesInBody';
 
-export const createTask = async (req: Request, res: Response) => {
+export const createTaskController = async (req: Request, res: Response) => {
   console.log('req. session checkAuthSessionIdCookie: ', req.session);
   const user = req.session.user;
   const { title, description, isChecked } = req.body;
