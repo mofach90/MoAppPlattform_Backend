@@ -4,11 +4,14 @@ import logger from '../../../../config/logger';
 import isTaskIdInBody from '../../../../services/utilities/isTaskIdInBody';
 
 export const deleteTaskController = async (req: Request, res: Response) => {
-  console.log('req. session checkAuthSessionIdCookie deleteTaskController: ', req.session);
+  console.log(
+    'req. session checkAuthSessionIdCookie deleteTaskController: ',
+    req.session,
+  );
   const user = req.session.user;
   const { taskId } = req.body;
-  console.log('req.body deleteTaskController ', req.body)
-  console.log('taskId ', taskId)
+  console.log('req.body deleteTaskController ', req.body);
+  console.log('taskId ', taskId);
   if (!isTaskIdInBody(req)) {
     res.status(401).json({
       message: 'Task ID is required',
@@ -17,15 +20,15 @@ export const deleteTaskController = async (req: Request, res: Response) => {
   }
   try {
     const taskRef: FirebaseFirestore.DocumentReference<
-    FirebaseFirestore.DocumentData,
-    FirebaseFirestore.DocumentData
+      FirebaseFirestore.DocumentData,
+      FirebaseFirestore.DocumentData
     > = db.collection('users').doc(user).collection('tasks').doc(taskId);
     const taskDoc: FirebaseFirestore.DocumentSnapshot<
-    FirebaseFirestore.DocumentData,
-    FirebaseFirestore.DocumentData
+      FirebaseFirestore.DocumentData,
+      FirebaseFirestore.DocumentData
     > = await taskRef.get();
     if (!taskDoc.exists) {
-      console.log('Task not found', taskDoc)
+      console.log('Task not found', taskDoc);
       return res.status(404).send({
         message: 'Task not found',
         taskDeleted: false,
