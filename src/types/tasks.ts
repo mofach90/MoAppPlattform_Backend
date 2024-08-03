@@ -3,11 +3,8 @@ export interface Task {
   title: string;
   description: string;
   isChecked?: boolean;
-  //   createdAt?: TaskTime;
+  dueDate?: string;
+  createdAt?: Date;
   //   updatedAt?: TaskTime;
 }
 
-export interface TaskTime {
-  _seconds?: number;
-  _nanoseconds?: number;
-}

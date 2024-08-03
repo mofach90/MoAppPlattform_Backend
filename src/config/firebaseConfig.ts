@@ -8,10 +8,16 @@ const serviceAccount: ServiceAccount = {
   clientEmail: process.env.SERVICE_ACCOUNT_CLIENT_EMAIL,
 };
 
+const firestoreSettings = {
+  ignoreUndefinedProperties: true,
+};
+
 const firebaseApp = admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
+  
 });
 
 export const auth: Auth = firebaseApp.auth();
 
 export const db: admin.firestore.Firestore = admin.firestore();
+ db.settings(firestoreSettings);
