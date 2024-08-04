@@ -3,6 +3,7 @@ import { db } from '../../../../config/firebaseConfig';
 import logger from '../../../../config/logger';
 import isTaskProperiesInBody from '../../../../services/utilities/isTaskProperiesInBody';
 import { Task } from '../../../../types/tasks';
+import dayjs from 'dayjs';
 
 export const createTaskController = async (req: Request, res: Response) => {
   console.log('req. session checkAuthSessionIdCookie: ', req.session);
@@ -15,7 +16,7 @@ export const createTaskController = async (req: Request, res: Response) => {
       description: description ,
       isChecked: false,
       dueDate: dueDate ,
-      createdAt: new Date(),
+      createdAt: dayjs(new Date()).toISOString(),
       // updatedAt: new Date(),  // to do for later
     };
     try {

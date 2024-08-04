@@ -4,7 +4,7 @@ export interface Task {
   description: string;
   isChecked?: boolean;
   dueDate?: string;
-  createdAt?: Date;
+  createdAt?: string;
   //   updatedAt?: TaskTime;
 }
 
