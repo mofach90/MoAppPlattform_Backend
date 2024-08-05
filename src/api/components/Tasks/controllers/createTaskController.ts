@@ -1,23 +1,23 @@
+import dayjs from 'dayjs';
 import { Request, Response } from 'express';
 import { db } from '../../../../config/firebaseConfig';
-import logger from '../../../../config/logger';
 import isTaskProperiesInBody from '../../../../services/utilities/isTaskProperiesInBody';
 import { Task } from '../../../../types/tasks';
-import dayjs from 'dayjs';
 
 export const createTaskController = async (req: Request, res: Response) => {
   console.log('req. session checkAuthSessionIdCookie: ', req.session);
   const user = req.session.user;
-  const { title, description, dueDate } = req.body;
+  const { title, description, dueDate, updatedAt } = req.body;
+  console.log({updatedAt})
 
   if (isTaskProperiesInBody(req)) {
     const newTask = {
       title,
-      description: description ,
+      description: description,
       isChecked: false,
-      dueDate: dueDate ,
+      dueDate: dueDate,
       createdAt: dayjs(new Date()).toISOString(),
-      // updatedAt: new Date(),  // to do for later
+      // updatedAt: updatedAt? updatedAt:dayjs(new Date()).toISOString(),
     };
     try {
       const taskRef: FirebaseFirestore.DocumentReference<
@@ -36,13 +36,14 @@ export const createTaskController = async (req: Request, res: Response) => {
         isChecked: newTask.isChecked,
         dueDate: newTask.dueDate,
         createdAt: newTask.createdAt,
+        // updatedAt: newTask.updatedAt,
       };
-      console.log("newCreatedTask", newCreatedTask)
+      console.log('newCreatedTask', newCreatedTask);
       res
         .status(201)
         .send({ newCreatedTask: newCreatedTask, taskCreated: true });
     } catch (error) {
-      console.log("error: ",error)
+      console.log('error: ', error);
       res.status(402).send({ error: error });
     }
   } else {

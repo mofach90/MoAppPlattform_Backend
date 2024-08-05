@@ -26,8 +26,8 @@ const getTasksController = async (req: Request, res: Response) => {
         description: tasksSnapshot.data().description,
         isChecked: tasksSnapshot.data().isChecked,
         dueDate: tasksSnapshot.data().dueDate,
-        createdAt: tasksSnapshot.data().createdAt
-
+        createdAt: tasksSnapshot.data().createdAt,
+        updatedAt: tasksSnapshot.data().updatedAt,
       }),
     );
     logger.info('GetTask Result ', tasks);

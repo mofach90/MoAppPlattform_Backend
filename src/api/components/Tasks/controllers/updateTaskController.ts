@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { Request, Response } from 'express';
 import { db } from '../../../../config/firebaseConfig';
 import logger from '../../../../config/logger';
@@ -6,14 +7,16 @@ import isTaskProperiesInBody from '../../../../services/utilities/isTaskProperie
 export const updateTaskController = async (req: Request, res: Response) => {
   console.log('req. session checkAuthSessionIdCookie: ', req.session);
   const user = req.session.user;
-  const { id, title, description, isChecked } = req.body;
+  const { id, title, description, isChecked, dueDate, createdAt } = req.body;
 
   if (isTaskProperiesInBody(req)) {
     const receivedTask = {
       title,
       description,
-      isChecked: isChecked,
-      updatedAt: new Date(),
+      isChecked,
+      updatedAt: dayjs(new Date()).toISOString(),
+      dueDate,
+      createdAt,
     };
     try {
       const taskRef: FirebaseFirestore.DocumentReference<
@@ -21,9 +24,7 @@ export const updateTaskController = async (req: Request, res: Response) => {
         FirebaseFirestore.DocumentData
       > = await db.collection('users').doc(user).collection('tasks').doc(id);
 
-      const response: FirebaseFirestore.WriteResult = await taskRef.update(
-        receivedTask,
-      );
+      await taskRef.update(receivedTask);
 
       res.status(200).send({ taskUpdated: true });
     } catch (error) {

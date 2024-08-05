@@ -5,6 +5,5 @@ export interface Task {
   isChecked?: boolean;
   dueDate?: string;
   createdAt?: string;
-  //   updatedAt?: TaskTime;
+  updatedAt?: string;
 }
-
