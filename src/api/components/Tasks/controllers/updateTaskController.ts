@@ -7,7 +7,7 @@ import isTaskProperiesInBody from '../../../../services/utilities/isTaskProperie
 export const updateTaskController = async (req: Request, res: Response) => {
   console.log('req. session checkAuthSessionIdCookie: ', req.session);
   const user = req.session.user;
-  const { id, title, description, isChecked, dueDate, createdAt } = req.body;
+  const { id, title, description, isChecked, dueDate, createdAt, priority } = req.body;
 
   if (isTaskProperiesInBody(req)) {
     const receivedTask = {
@@ -17,6 +17,7 @@ export const updateTaskController = async (req: Request, res: Response) => {
       updatedAt: dayjs(new Date()).toISOString(),
       dueDate,
       createdAt,
+      priority
     };
     try {
       const taskRef: FirebaseFirestore.DocumentReference<

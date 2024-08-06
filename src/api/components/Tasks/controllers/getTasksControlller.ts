@@ -28,6 +28,7 @@ const getTasksController = async (req: Request, res: Response) => {
         dueDate: tasksSnapshot.data().dueDate,
         createdAt: tasksSnapshot.data().createdAt,
         updatedAt: tasksSnapshot.data().updatedAt,
+        priority: tasksSnapshot.data().priority,
       }),
     );
     logger.info('GetTask Result ', tasks);
