@@ -7,6 +7,7 @@ export interface Task {
   createdAt?: string;
   updatedAt?: string;
   priority: PriorityType;
+  reminder?: string;
 }
 
 export type PriorityType = 'medium' | 'high' | 'low';

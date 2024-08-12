@@ -7,7 +7,7 @@ import { Task } from '../../../../types/tasks';
 export const createTaskController = async (req: Request, res: Response) => {
   console.log('req. session checkAuthSessionIdCookie: ', req.session);
   const user = req.session.user;
-  const { title, description, dueDate, updatedAt , priority} = req.body;
+  const { title, description, dueDate, updatedAt , priority, reminder} = req.body;
   console.log({updatedAt})
 
   if (isTaskProperiesInBody(req)) {
@@ -17,8 +17,8 @@ export const createTaskController = async (req: Request, res: Response) => {
       isChecked: false,
       dueDate: dueDate,
       createdAt: dayjs(new Date()).toISOString(),
-      // updatedAt: updatedAt? updatedAt:dayjs(new Date()).toISOString(),
-      priority
+      priority,
+      reminder
     };
     try {
       const taskRef: FirebaseFirestore.DocumentReference<
@@ -37,7 +37,7 @@ export const createTaskController = async (req: Request, res: Response) => {
         isChecked: newTask.isChecked,
         dueDate: newTask.dueDate,
         createdAt: newTask.createdAt,
-        // updatedAt: newTask.updatedAt,
+        reminder: newTask.reminder,
         priority: newTask.priority
       };
       console.log('newCreatedTask', newCreatedTask);
