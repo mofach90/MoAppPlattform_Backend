@@ -5,6 +5,7 @@ import getTasksRoutes from './deleteTasks';
 import deleteTasksRoutes from './getTasks';
 import updateTasksRoutes from './updateTasks';
 import getTokenPushNotification from './getTokenPushNotification';
+import sendNotification from './sendNotification';
 
 const tasksRoutes = (): Router => {
   const router = Router();
@@ -14,7 +15,7 @@ const tasksRoutes = (): Router => {
   deleteTasksRoutes(router);
   updateTasksRoutes(router);
   getTokenPushNotification(router);
-
+  sendNotification(router);
   return router;
 };
 

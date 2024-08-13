@@ -3,6 +3,8 @@ import { Request, Response } from 'express';
 import { db } from '../../../../config/firebaseConfig';
 import isTaskProperiesInBody from '../../../../services/utilities/isTaskProperiesInBody';
 import { Task } from '../../../../types/tasks';
+import createReminderTask from '../../../../services/utilities/createReminderTask';
+import handleTaskReminder from '../../../../services/utilities/handleTaskReminder';
 
 export const createTaskController = async (req: Request, res: Response) => {
   console.log('req. session checkAuthSessionIdCookie: ', req.session);
@@ -44,6 +46,11 @@ export const createTaskController = async (req: Request, res: Response) => {
       res
         .status(201)
         .send({ newCreatedTask: newCreatedTask, taskCreated: true });
+      if (newCreatedTask.dueDate && newCreatedTask.reminder) {
+
+        await handleTaskReminder(newCreatedTask)
+      }
+      
     } catch (error) {
       console.log('error: ', error);
       res.status(402).send({ error: error });

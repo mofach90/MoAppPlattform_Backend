@@ -7,3 +7,5 @@ export function registerApiRoutes(router: Router, prefix: string = ''): void {
   router.use(`${prefix}/auth`, createAuthRoutes());
   router.use(`${prefix}/todo-app/tasks`, checkAuthforApps, tasksRoutes());
 }
+
+
