@@ -5,8 +5,9 @@ import { Task } from '../../types/tasks';
 const client = new CloudTasksClient();
 
 const createReminderTask = async (createdTask: Task) => {
-  console.log('enter createReminderTask');
-
+  console.log('enter createReminderTask, created task is ', createdTask);
+  
+  
   const projectId = 'cpl-mo';
   const queue = 'TestQueue';
   const location = 'europe-west3';
@@ -17,7 +18,8 @@ const createReminderTask = async (createdTask: Task) => {
     .subtract(parseInt(createdTask.reminder as string), 'minute')
     .diff(dayjs(), 'second');
 
-    const scheduleTime = dayjs().add(delayInSeconds, 'second').unix();
+  console.log('the task delayInSeconds: ', delayInSeconds);
+  const scheduleTime = dayjs().add(delayInSeconds, 'second').unix();
 
   const parent = client.queuePath(projectId, location, queue);
 
@@ -38,6 +40,8 @@ const createReminderTask = async (createdTask: Task) => {
   console.log('the task that i ll send: ', task);
   const [response] = await client.createTask({ parent, task });
   console.log('Client create response: ', response);
+  console.log('Client create response.name: ', response.name);
+
   return response;
 };
 

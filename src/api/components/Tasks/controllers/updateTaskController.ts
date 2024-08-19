@@ -2,15 +2,26 @@ import dayjs from 'dayjs';
 import { Request, Response } from 'express';
 import { db } from '../../../../config/firebaseConfig';
 import logger from '../../../../config/logger';
+import { cancelReminderTask } from '../../../../services/utilities/cancelReminderTask';
+import handleTaskReminder from '../../../../services/utilities/handleTaskReminder';
 import isTaskProperiesInBody from '../../../../services/utilities/isTaskProperiesInBody';
 
 export const updateTaskController = async (req: Request, res: Response) => {
   console.log('req. session checkAuthSessionIdCookie: ', req.session);
   const user = req.session.user;
-  const { id, title, description, isChecked, dueDate, createdAt, priority, reminder } = req.body;
+  const {
+    id,
+    title,
+    description,
+    isChecked,
+    dueDate,
+    createdAt,
+    priority,
+    reminder,
+  } = req.body;
 
   if (isTaskProperiesInBody(req)) {
-    const receivedTask = {
+    let receivedTask = {
       title,
       description,
       isChecked,
@@ -18,13 +29,40 @@ export const updateTaskController = async (req: Request, res: Response) => {
       dueDate,
       createdAt,
       priority,
-      reminder
+      reminder,
+      reminderTask: '',
     };
     try {
       const taskRef: FirebaseFirestore.DocumentReference<
         FirebaseFirestore.DocumentData,
         FirebaseFirestore.DocumentData
-      > = await db.collection('users').doc(user).collection('tasks').doc(id);
+      > = db.collection('users').doc(user).collection('tasks').doc(id);
+
+      const snapshotTask = await taskRef.get();
+      const existingTask = snapshotTask.data();
+      console.log("receivedTask: ", receivedTask)
+      console.log("existingTask: ", existingTask)
+      if (existingTask && (reminder !== existingTask.reminder || dueDate !== existingTask.dueDate || (reminder === undefined && dueDate !== existingTask.dueDate)) ) {
+        if (reminder === 'none' && existingTask.reminderTask !== '' ) {
+          console.log("enter update case hen reminder === none")
+          await cancelReminderTask(existingTask.reminderTask);
+          receivedTask.reminderTask = ''
+
+          
+        }else if((reminder !== 'none' && existingTask.reminderTask !== '') || (reminder !== 'none' && dueDate !== existingTask.dueDate) ){
+          console.log("enter update case hen reminder !== none")
+          
+          await cancelReminderTask(existingTask.reminderTask);
+          const remindertask = await handleTaskReminder(receivedTask);
+          receivedTask.reminderTask = remindertask as string;
+        }else if (reminder !== 'none' && existingTask.reminderTask === '' ){
+          const remindertask = await handleTaskReminder(receivedTask);
+          receivedTask.reminderTask = remindertask as string;
+
+        }else{
+          console.log("no need for any task reminder operation")
+        }
+      }
 
       await taskRef.update(receivedTask);
 

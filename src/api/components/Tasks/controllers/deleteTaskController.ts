@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { db } from '../../../../config/firebaseConfig';
 import logger from '../../../../config/logger';
 import isTaskIdInBody from '../../../../services/utilities/isTaskIdInBody';
+import { cancelReminderTask } from '../../../../services/utilities/cancelReminderTask';
 
 export const deleteTaskController = async (req: Request, res: Response) => {
   console.log('req. session checkAuthSessionIdCookie deleteTaskController: ', req.session);
@@ -30,6 +31,12 @@ export const deleteTaskController = async (req: Request, res: Response) => {
         message: 'Task not found',
         taskDeleted: false,
       });
+    }
+    const existingTask = taskDoc.data();
+    console.log("existingTask from delete operation", existingTask)
+    if ( existingTask?.reminder && existingTask.reminder !== 'none') {
+      await cancelReminderTask(existingTask.reminderTask);
+
     }
     await taskRef.delete();
     res.status(200).send({

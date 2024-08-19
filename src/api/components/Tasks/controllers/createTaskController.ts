@@ -1,28 +1,34 @@
 import dayjs from 'dayjs';
 import { Request, Response } from 'express';
 import { db } from '../../../../config/firebaseConfig';
+import handleTaskReminder from '../../../../services/utilities/handleTaskReminder';
 import isTaskProperiesInBody from '../../../../services/utilities/isTaskProperiesInBody';
 import { Task } from '../../../../types/tasks';
-import createReminderTask from '../../../../services/utilities/createReminderTask';
-import handleTaskReminder from '../../../../services/utilities/handleTaskReminder';
 
 export const createTaskController = async (req: Request, res: Response) => {
   console.log('req. session checkAuthSessionIdCookie: ', req.session);
   const user = req.session.user;
-  const { title, description, dueDate, updatedAt , priority, reminder} = req.body;
-  console.log({updatedAt})
+  const { title, description, dueDate, updatedAt, priority, reminder } =
+    req.body;
+  console.log({ updatedAt });
 
   if (isTaskProperiesInBody(req)) {
-    const newTask = {
+    let newTask = {
       title,
       description: description,
       isChecked: false,
       dueDate: dueDate,
       createdAt: dayjs(new Date()).toISOString(),
       priority,
-      reminder
+      reminder,
+      reminderTask:""
     };
     try {
+      let reminderTask 
+      if (newTask.dueDate && newTask.reminder && newTask.reminder !== 'none') {
+         reminderTask  = await handleTaskReminder(newTask);
+         newTask.reminderTask = reminderTask as string
+      }
       const taskRef: FirebaseFirestore.DocumentReference<
         FirebaseFirestore.DocumentData,
         FirebaseFirestore.DocumentData
@@ -40,17 +46,13 @@ export const createTaskController = async (req: Request, res: Response) => {
         dueDate: newTask.dueDate,
         createdAt: newTask.createdAt,
         reminder: newTask.reminder,
-        priority: newTask.priority
+        priority: newTask.priority,
+        reminderTask: reminderTask 
       };
       console.log('newCreatedTask', newCreatedTask);
       res
         .status(201)
         .send({ newCreatedTask: newCreatedTask, taskCreated: true });
-      if (newCreatedTask.dueDate && newCreatedTask.reminder) {
-
-        await handleTaskReminder(newCreatedTask)
-      }
-      
     } catch (error) {
       console.log('error: ', error);
       res.status(402).send({ error: error });
