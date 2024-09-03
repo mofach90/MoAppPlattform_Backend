@@ -8,8 +8,19 @@ export interface Task {
   updatedAt?: string;
   priority: PriorityType;
   reminder?: string;
-  reminderTask?:string
+  reminderTask?:string;
+  topic?: TopicType;
 }
+
+export type TopicType =
+  | 'Travel'
+  | 'Personal'
+  | 'Work'
+  | 'Home/Family'
+  | 'Education'
+  | 'Shopping'
+  | null;
+
 
 export type PriorityType = 'medium' | 'high' | 'low';
 

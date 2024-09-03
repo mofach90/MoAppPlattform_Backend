@@ -18,6 +18,7 @@ export const updateTaskController = async (req: Request, res: Response) => {
     createdAt,
     priority,
     reminder,
+    topic
   } = req.body;
 
   if (isTaskProperiesInBody(req)) {
@@ -31,6 +32,7 @@ export const updateTaskController = async (req: Request, res: Response) => {
       priority,
       reminder,
       reminderTask: '',
+      topic,
     };
     try {
       const taskRef: FirebaseFirestore.DocumentReference<

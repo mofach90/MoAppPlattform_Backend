@@ -30,6 +30,7 @@ const getTasksController = async (req: Request, res: Response) => {
         updatedAt: tasksSnapshot.data().updatedAt,
         priority: tasksSnapshot.data().priority,
         reminder: tasksSnapshot.data().reminder,
+        topic: tasksSnapshot.data().topic
       }),
     );
     logger.info('GetTask Result ', tasks);

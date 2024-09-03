@@ -8,7 +8,7 @@ import { Task } from '../../../../types/tasks';
 export const createTaskController = async (req: Request, res: Response) => {
   console.log('req. session checkAuthSessionIdCookie: ', req.session);
   const user = req.session.user;
-  const { title, description, dueDate, updatedAt, priority, reminder } =
+  const { title, description, dueDate, updatedAt, priority, reminder, topic } =
     req.body;
   console.log({ updatedAt });
 
@@ -21,7 +21,8 @@ export const createTaskController = async (req: Request, res: Response) => {
       createdAt: dayjs(new Date()).toISOString(),
       priority,
       reminder,
-      reminderTask:""
+      reminderTask:"",
+      topic
     };
     try {
       let reminderTask 
@@ -47,7 +48,8 @@ export const createTaskController = async (req: Request, res: Response) => {
         createdAt: newTask.createdAt,
         reminder: newTask.reminder,
         priority: newTask.priority,
-        reminderTask: reminderTask 
+        reminderTask: reminderTask,
+        topic: newTask.topic
       };
       console.log('newCreatedTask', newCreatedTask);
       res
