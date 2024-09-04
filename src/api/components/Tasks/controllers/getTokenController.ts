@@ -31,6 +31,6 @@ export const getTokenPushNotificationController = async (
   try {
   } catch (error) {
     console.log('Error sending message:', error);
-    res.status(500).send({ error: error });
+    res.status(500).send({ message: error });
   }
 };

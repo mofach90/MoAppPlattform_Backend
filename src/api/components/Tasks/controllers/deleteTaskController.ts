@@ -45,6 +45,6 @@ export const deleteTaskController = async (req: Request, res: Response) => {
     });
   } catch (error) {
     logger.error('Request to firebase failed with error:  ', error);
-    res.status(500).send({ error: error });
+    res.status(500).send({ message: error });
   }
 };

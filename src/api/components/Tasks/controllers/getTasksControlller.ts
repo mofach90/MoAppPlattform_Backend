@@ -38,7 +38,7 @@ const getTasksController = async (req: Request, res: Response) => {
     return res.status(200).json({ tasks: tasks });
   } catch (error) {
     logger.error('Error getting tasks:', error);
-    return res.status(500).send('Internal Server Error');
+    return res.status(500).send({message:'Internal Server Error'});
   }
 };
 

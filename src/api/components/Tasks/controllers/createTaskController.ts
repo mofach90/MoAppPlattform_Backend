@@ -57,7 +57,7 @@ export const createTaskController = async (req: Request, res: Response) => {
         .send({ newCreatedTask: newCreatedTask, taskCreated: true });
     } catch (error) {
       console.log('error: ', error);
-      res.status(402).send({ error: error });
+      res.status(402).send({ message: error });
     }
   } else {
     res.status(401).send({
