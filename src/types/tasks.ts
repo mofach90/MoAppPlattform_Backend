@@ -10,7 +10,11 @@ export interface Task {
   reminder?: string;
   reminderTask?:string;
   topic?: TopicType;
+  userEmail?:string
+  userId?:string
 }
+
+
 
 export type TopicType =
   | 'Travel'

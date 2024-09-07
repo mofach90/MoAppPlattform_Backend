@@ -4,13 +4,15 @@ import { db } from '../../../../config/firebaseConfig';
 import handleTaskReminder from '../../../../services/utilities/handleTaskReminder';
 import isTaskProperiesInBody from '../../../../services/utilities/isTaskProperiesInBody';
 import { Task } from '../../../../types/tasks';
+import { v4 as uuidv4 } from 'uuid';
+
 
 export const createTaskController = async (req: Request, res: Response) => {
   console.log('req. session checkAuthSessionIdCookie: ', req.session);
   const user = req.session.user;
-  const { title, description, dueDate, updatedAt, priority, reminder, topic } =
+  const { id, title, description, dueDate, updatedAt, priority, reminder, topic, userEmail } =
     req.body;
-  console.log({ updatedAt });
+  console.log("req.body: ",req.body );
 
   if (isTaskProperiesInBody(req)) {
     let newTask = {
@@ -22,23 +24,24 @@ export const createTaskController = async (req: Request, res: Response) => {
       priority,
       reminder,
       reminderTask:"",
-      topic
+      topic,
+      userEmail
     };
     try {
+      const taskRef: FirebaseFirestore.DocumentReference<
+      FirebaseFirestore.DocumentData,
+      FirebaseFirestore.DocumentData
+      > = await db
+      .collection('users')
+      .doc(user)
+      .collection('tasks')
+      .add(newTask);
+      
       let reminderTask 
       if (newTask.dueDate && newTask.reminder && newTask.reminder !== 'none') {
-         reminderTask  = await handleTaskReminder(newTask);
+         reminderTask  = await handleTaskReminder({...newTask, id:taskRef.id, userId:user});
          newTask.reminderTask = reminderTask as string
       }
-      const taskRef: FirebaseFirestore.DocumentReference<
-        FirebaseFirestore.DocumentData,
-        FirebaseFirestore.DocumentData
-      > = await db
-        .collection('users')
-        .doc(user)
-        .collection('tasks')
-        .add(newTask);
-
       const newCreatedTask: Task = {
         id: taskRef.id,
         title: newTask.title,

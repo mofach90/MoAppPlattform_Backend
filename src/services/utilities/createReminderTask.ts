@@ -1,18 +1,23 @@
 import { CloudTasksClient, protos } from '@google-cloud/tasks';
 import dayjs from 'dayjs';
 import { Task } from '../../types/tasks';
+import { getAppWriteUser } from './getAppWriteUser';
 
 const client = new CloudTasksClient();
 
 const createReminderTask = async (createdTask: Task) => {
   console.log('enter createReminderTask, created task is ', createdTask);
-  
-  
+
   const projectId = 'cpl-mo';
   const queue = 'TestQueue';
   const location = 'europe-west3';
+
+  const appWriteUserId = await getAppWriteUser(createdTask);
+
   const payload = {
+    userId: createdTask.userId,
     taskId: createdTask.id,
+    appWriteUserId: appWriteUserId,
   };
   const delayInSeconds = dayjs(createdTask.dueDate)
     .subtract(parseInt(createdTask.reminder as string), 'minute')
