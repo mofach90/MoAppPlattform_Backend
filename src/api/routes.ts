@@ -16,9 +16,6 @@ export function initRestRoutes(router: Router): void {
         'Welcome to MoAppBackend, use the prefix api/v1 to use our api features ',
       );
   });
-  router.use('*', (req: Request, res: Response, next: NextFunction) => {
-    next();
-  });
   registerMiddleware(router);
   registerApiRoutes(router, prefix);
 }

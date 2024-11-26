@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 export const createTaskController = async (req: Request, res: Response) => {
   console.log('req. session checkAuthSessionIdCookie: ', req.session);
   const user = req.session.user;
-  const { id, title, description, dueDate, updatedAt, priority, reminder, topic, userEmail } =
+  const { title, description, dueDate, priority, reminder, topic, userEmail } =
     req.body;
   console.log("req.body: ",req.body );
 

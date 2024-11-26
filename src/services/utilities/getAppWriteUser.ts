@@ -1,7 +1,7 @@
 import { Query } from 'node-appwrite';
-import { users } from '../../api/components/Tasks/controllers/sendNotificationController';
 import { Task } from '../../types/tasks';
 import { getEmailUsername } from './geEmailUsername';
+import { users } from '../../config/appWriteConfig';
 
 export const getAppWriteUser = async (createdTask: Task): Promise<string> => {
   const appWriteUserName = getEmailUsername(createdTask?.userEmail ?? ' @ ');
