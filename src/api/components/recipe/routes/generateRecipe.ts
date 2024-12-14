@@ -3,7 +3,7 @@ import { generateRecipeController } from '../controllers/generateRecipeControlle
 import { recipeMiddleware } from '../../../../services/recipe/recipeMiddleware';
 
 const generateRecipe = (router: Router) => {
-  router.get('/generate-recipe',  recipeMiddleware ,  generateRecipeController);
+  router.post('/generate-recipe',  recipeMiddleware ,  generateRecipeController);
 };
 
 export default generateRecipe;

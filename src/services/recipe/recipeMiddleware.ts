@@ -1,13 +1,18 @@
-import { Request, Response, NextFunction } from 'express';
-import { generateRecipe } from './generateRecipe';
+import { NextFunction, Request, Response } from 'express';
 import { generateImage } from './generateImage';
+import { generateRecipe } from './generateRecipe';
 
-export const recipeMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+export const recipeMiddleware = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
-    const ingredientsText = req.body.ingredients || 'chicken, pepper, rice, olive oil, curry powder';
+    const userInputs =
+      req.body.userInputs || 'chicken, pepper, rice, olive oil, curry powder';
 
     // Generate the recipe
-    const recipe = await generateRecipe(ingredientsText);
+    const recipe = await generateRecipe(userInputs);
 
     if (!recipe) {
       return res.status(500).json({ message: 'Failed to generate recipe.' });

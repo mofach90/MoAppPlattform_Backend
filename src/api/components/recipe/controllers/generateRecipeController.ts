@@ -10,7 +10,12 @@ export const generateRecipeController = (req: Request, res: Response) => {
   res.setHeader('Content-Disposition', `inline; filename="${recipe.name}.png"`);
 
   console.log('Recipe:', recipe);
+  const imageBase64 = imageBuffer.toString('base64');
 
   // Send the image buffer as the response
-  res.send(imageBuffer);
+  // Structure the response to include both recipe and image
+  res.json({
+    recipe,
+    image: `data:image/png;base64,${imageBase64}`,
+  });
 };
