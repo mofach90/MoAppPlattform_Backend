@@ -18,7 +18,7 @@ export const verifyJwtFromCookie = (
   }
 
   const parsedCookies = cookie.parse(cookies);
-  logger.info({parsedCookies})
+  logger.info({ parsedCookies });
   const token = parsedCookies['connect.sid'];
   if (!token) {
     return res
@@ -31,9 +31,12 @@ export const verifyJwtFromCookie = (
       token,
       process.env.JWT_SECRET ?? '',
     );
-    logger.warn("decode",decode)
+    logger.warn('decode', decode);
 
-    if (typeof decode === 'string' || decode.user !== process.env.EMAIL_ADRESS) {
+    if (
+      typeof decode === 'string' ||
+      decode.user !== process.env.EMAIL_ADRESS
+    ) {
       return res
         .status(401)
         .send({ message: 'Invalid Token', isAuthenticatedJwt: false });

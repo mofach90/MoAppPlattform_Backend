@@ -13,7 +13,7 @@ export function manageSessions(
 ) {
   const sessionId = req.session.id;
   const userId = req.session?.passport?.user;
-  logger.info("req.session?.passport?.user", req.session?.passport?.user)
+  logger.info('req.session?.passport?.user', req.session?.passport?.user);
   if (userId) {
     if (isValidSession(userId, sessionId)) {
       logger.info(' Your Session Still Valid , No need to Authenticate again ');

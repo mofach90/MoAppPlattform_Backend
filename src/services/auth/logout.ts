@@ -8,10 +8,10 @@ export const logoutMiddleware = (
   res: Response,
   next: NextFunction,
 ) => {
-  console.log("req.session from logoout: ", req.session)
+  console.log('req.session from logoout: ', req.session);
   const userId = req.session?.passport?.user
-    ? req.session?.passport?.user ?? ''
-    : req.session?.user ?? '';
+    ? (req.session?.passport?.user ?? '')
+    : (req.session?.user ?? '');
   logger.debug({ userId });
   req.logout((err) => {
     if (err) {

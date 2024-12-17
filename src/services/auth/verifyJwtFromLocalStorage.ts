@@ -20,8 +20,11 @@ export const verifyJwtFromLocalStorage = (
       token,
       process.env.JWT_SECRET ?? '',
     );
-    logger.warn({decode})
-    if (typeof decode === 'string' || decode.user !== process.env.EMAIL_ADRESS) {
+    logger.warn({ decode });
+    if (
+      typeof decode === 'string' ||
+      decode.user !== process.env.EMAIL_ADRESS
+    ) {
       return res
         .status(401)
         .send({ message: 'Invalid Token', isAuthenticatedJwt: false });

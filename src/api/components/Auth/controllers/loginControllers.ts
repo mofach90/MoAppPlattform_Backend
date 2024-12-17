@@ -82,12 +82,12 @@ export const loginFirebaseWithEmailUserNameOrAnonymouslyController = (
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: 60 * 60 * 2 * 1000, 
+      maxAge: 60 * 60 * 2 * 1000,
     });
 
     if (sessionId && userId) {
       addSessionToDataBase(userId, sessionId);
-      console.log("REQ.SESSION : ", req.session);
+      console.log('REQ.SESSION : ', req.session);
       logger.info('success from login firebase controller');
       return res.status(200).json({ message: `User Logged In ` });
     } else {

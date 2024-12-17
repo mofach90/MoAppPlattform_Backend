@@ -1,7 +1,8 @@
 import { Router } from 'express';
+import { deleteTaskController } from '../controllers/deleteTaskController';
 
 const createDeleteTasksRoutes = (router: Router) => {
-  /*   delete tasks routes   */
+  router.post('/delete-task', deleteTaskController);
 };
 
 export default createDeleteTasksRoutes;

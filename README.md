@@ -1,6 +1,6 @@
 # MoAppPlattform_Backend
 
-MoAppPlattform_Backend is a backend service built with Node.js and Express. It provides simple web APIs for a web app plattform. 
+MoAppPlattform_Backend is a backend service built with Node.js and Express. It provides simple web APIs for a web app plattform.
 
 ## Getting Started
 
