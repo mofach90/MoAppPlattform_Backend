@@ -4,7 +4,7 @@ MoAppPlattform_Backend is a backend service built with Node.js and Express. It p
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.  
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.   
 
 ### Prerequisites
 
